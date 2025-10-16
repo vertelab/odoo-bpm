@@ -1,1 +1,1 @@
-from . import prd
+from . import bpm_workflow
