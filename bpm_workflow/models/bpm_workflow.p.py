@@ -127,13 +127,13 @@ class BPMWorkflow(models.Model):
 
     duration_tracking = fields.Float(string='Duration Tracking')
     active = fields.Boolean(string='Active', default=True)
-    parent_id = fields.Many2one(comodel_name='bpm.workflow',string="Parent PRD",help="")
+    parent_id = fields.Many2one(comodel_name='bpm.workflow',string="Parent BPM",help="")
     company_id = fields.Many2one(comodel_name='res.company',string="Company",help="") 
     name = fields.Char(string="Titel", required=True)
     description = fields.Text(string="Description",help="Purpuse")
     version = fields.Char(string="Version", default="1.0",readonly=True,tracking=True)
     author_id = fields.Many2one('res.users', string="Author",tracking=True)
-    product_owner_id = fields.Many2one('res.users', string="Product Owner",tracking=True)
+    process_owner_id = fields.Many2one('res.users', string="Process Owner",tracking=True)
     approved_by_id = fields.Many2one('res.users', string="Approved By",readonly=True,tracking=True)
     date = fields.Date(string="Date", default=fields.Date.today,readonly=True,tracking=True)
     goals = fields.Text(string="Goal")
@@ -149,7 +149,8 @@ class BPMWorkflow(models.Model):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('approved', 'Approved'),
-        ('rejected', 'Rejected')],
+        ('rejected', 'Rejected'),
+        ('deprecated', 'Deprecated')],
         string="State",
         default='draft',
         tracking=True
@@ -161,9 +162,9 @@ class BPMWorkflow(models.Model):
     closed_requirements_count = fields.Integer(string="Closed Requirements", compute='_compute_requirements_counts')
     requirements_percentage = fields.Float(string="Requirements Completion %", compute='_compute_requirements_counts')
 
-    Tasks_count = fields.Integer(string="Total Tasks", compute='_compute_Tasks_counts')
-    closed_Tasks_count = fields.Integer(string="Closed Tasks", compute='_compute_Tasks_counts')
-    Tasks_percentage = fields.Float(string="Tasks Completion %", compute='_compute_Tasks_counts')
+    tasks_count = fields.Integer(string="Total Tasks", compute='_compute_Tasks_counts')
+    closed_tasks_count = fields.Integer(string="Closed Tasks", compute='_compute_Tasks_counts')
+    tasks_percentage = fields.Float(string="Tasks Completion %", compute='_compute_Tasks_counts')
 
     @api.onchange('state')
     def _onchange_state(self):
@@ -178,9 +179,9 @@ class BPMWorkflow(models.Model):
         for record in self:
             total = len(record.task_ids.filtered(lambda r: r.priority == 'should'))
             closed = len(record.task_ids.filtered(lambda f: f.state == 'done'))
-            record.Tasks_count = total
-            record.closed_Tasks_count = closed
-            record.Tasks_percentage = (closed / total * 100) if total else 0.0
+            record.tasks_count = total
+            record.closed_tasks_count = closed
+            record.tasks_percentage = (closed / total * 100) if total else 0.0
 
     @api.depends('requirement_ids')
     def _compute_requirements_counts(self):
@@ -216,8 +217,8 @@ class BPMWorkflow(models.Model):
           'name': 'Tasks',
           'res_model': 'bpm.task',
           'domain': [('bpm_id', '=', self.id)],
-          'view_mode': 'tree,form',
-          'target': 'new',
+          'view_mode': 'list,form',
+          'target': 'current',
       }
 
     def action_requirements(self):
@@ -226,16 +227,17 @@ class BPMWorkflow(models.Model):
           'name': 'Requirements',
           'res_model': 'bpm.requirement',
           'domain': [('bpm_id', '=', self.id)],
-          'view_mode': 'tree,form',
-          'target': 'new',
+          'view_mode': 'list,form',
+          'target': 'current',
       }
-
 
 class BPMTask(models.Model):
     _name = 'bpm.task'
     _inherit = ['mermaid.mixin', 'mail.thread', 'mail.activity.mixin']
     _description = 'BPM Task'
+    _order = "sequence desc"
 
+    parent_id = fields.Many2one(comodel_name='bpm.task',string="Parent Task",help="") 
     description = fields.Text(string="Description")
     name = fields.Char(string="Name", required=True)
     process_data = fields.Text(string="Process")
@@ -244,7 +246,7 @@ class BPMTask(models.Model):
         ('should', 'Should'),
         ('could', 'Could')
     ], string="Priority", default='must')
-    bpm_id = fields.Many2one('bpm.workflow', string='PRD', ondelete='cascade', required=True)
+    bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
     prompt = fields.Text(string="Prompt")
     requirement_ids = fields.One2many(
         comodel_name='bpm.requirement',
@@ -266,11 +268,17 @@ class BPMTask(models.Model):
         ('start', 'Startpoint'),
         ('decision', 'Decision'),
     ], string="Type", default='task')
+    decision_type = fields.Selection([
+        ('man', 'Manual'),
+        ('domain', 'Conditions'),
+    ], string="Decision", default='man')
+    user_id = fields.Many2one(comodel_name='res.users',string="Author",help="")
 
 class BPMRequirement(models.Model):
     _name = 'bpm.requirement'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'BPM Requirement'
+    _order = "sequence desc"
 
     description = fields.Text(string="Description")
     task_ids = fields.Many2many(
@@ -280,7 +288,7 @@ class BPMRequirement(models.Model):
         compute='_compute_task_ids',
         store=True
     )
-    bpm_id = fields.Many2one('bpm.workflow', string='PRD', ondelete='cascade', required=True)
+    bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
     name = fields.Char(string="Name", required=True)
     priority = fields.Selection([
         ('must', 'Must'),
@@ -293,7 +301,7 @@ class BPMRequirement(models.Model):
         ('non-func', 'Non Functional'),
     ], string="Type", default='func')
 
-    @api.depends('brp_id.task_ids')
+    @api.depends('bpm_id.task_ids')
     def _compute_task_ids(self):
         for requirement in self:
             Tasks = self.env['bpm.task'].search([('requirement_ids', 'in', requirement.id)])

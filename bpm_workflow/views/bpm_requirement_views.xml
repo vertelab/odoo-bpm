@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<odoo>
+  <!-- Search View -->
+  <record id="view_bpm_requirement_search" model="ir.ui.view">
+    <field name="name">bpm.requirement.search</field>
+    <field name="model">bpm.requirement</field>
+    <field name="arch" type="xml">
+      <search string="BPM Requirements">
+        <field name="name"/>
+        <field name="priority"/>
+        <field name="req_type"/>
+        <field name="bpm_id"/>
+<!--
+        <filter string="Must" domain="[('priority','=','must')]"/>
+        <filter string="Should" domain="[('priority','=','should')]"/>
+        <filter string="Could" domain="[('priority','=','could')]"/>
+-->
+        <group expand="1" string="Group By">
+          <filter string="Priority" name="group_by_priority" context="{'group_by':'priority'}"/>
+          <filter string="Type" name="group_by_type" context="{'group_by':'req_type'}"/>
+          <filter string="BPM Workflow" name="group_by_bpm" context="{'group_by':'bpm_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+
+  <!-- List View -->
+  <record id="view_bpm_requirement_tree" model="ir.ui.view">
+    <field name="name">bpm.requirement.tree</field>
+    <field name="model">bpm.requirement</field>
+    <field name="arch" type="xml">
+      <list string="BPM Requirements">
+        <field name="sequence" widget="handle"/>
+        <field name="name"/>
+        <field name="priority" optional="show"/>
+        <field name="req_type" optional="hide"/>
+        <field name="bpm_id" optional="hide"/>
+      </list>
+    </field>
+  </record>
+
+  <!-- Form View -->
+  <record id="view_bpm_requirement_form" model="ir.ui.view">
+    <field name="name">bpm.requirement.form</field>
+    <field name="model">bpm.requirement</field>
+    <field name="arch" type="xml">
+      <form string="BPM Requirement">
+        <sheet>
+          <group>
+            <field name="name" required="1"/>
+            <field name="priority"/>
+            <field name="req_type"/>
+            <field name="sequence"/>
+            <field name="bpm_id"/>
+          </group>
+          <notebook>
+            <page string="Description">
+              <field name="description" nolabel="1"/>
+            </page>
+            <page string="Tasks">
+              <field name="task_ids" widget="many2many_tags"/>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+</odoo>
+
+
+</odoo>

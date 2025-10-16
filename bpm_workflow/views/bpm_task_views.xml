@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_bpm_task_search" model="ir.ui.view">
+    <field name="name">bpm.task.search</field>
+    <field name="model">bpm.task</field>
+    <field name="arch" type="xml">
+      <search string="BPM Tasks">
+        <field name="name" />
+        <field name="priority" />
+        <field name="state" />
+        <field name="user_id" />
+        <field name="parent_id" />
+<!--
+        <field name="decision_type" />
+        <filter string="My Tasks" name="own_tasks" domain="[('user_id', '=', uid)]"/>
+        <filter string="Draft" domain="[('state', '=', 'draft')]" />
+        <filter string="Ongoing" domain="[('state', '=', 'ongoing')]" />
+        <filter string="Done" domain="[('state', '=', 'done')]" />
+-->
+        
+        <group expand="1" string="Group By">
+            <filter string="Type" name="group_by_task_type" context="{'group_by':'task_type'}" />
+            <filter string="State" name="group_by_state" context="{'group_by':'state'}" />
+            <filter string="Priority" name="group_by_priority" context="{'group_by':'priority'}" />
+            <filter string="Parent Task" name="group_by_parent" context="{'group_by':'parent_id'}" />
+          </group>
+      </search>
+    </field>
+  </record>
+<record id="view_bpm_task_tree" model="ir.ui.view">
+  <field name="name">bpm.task.tree</field>
+  <field name="model">bpm.task</field>
+  <field name="arch" type="xml">
+    <list string="BPM Tasks">
+      <field name="sequence" widget="handle" />
+      <field name="name" />
+      <field name="priority" optional="show" />
+      <field name="state" optional="show" />
+      <field name="task_type" optional="hide" />
+      <field name="decision_type" optional="hide" />
+      <field name="user_id" optional="hide" />
+      <field name="parent_id" optional="hide" />
+    </list>
+  </field>
+</record>
+
+  <record id="view_bpm_task_form" model="ir.ui.view">
+    <field name="name">bpm.task.form</field>
+    <field name="model">bpm.task</field>
+    <field name="arch" type="xml">
+      <form string="BPM Task">
+        <header>
+          <!--
+               <button name="button_major_version" string="Major Version" type="object" xclass="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="m" />
+               <button name="button_minor_version" string="Minor Version" type="object" class="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="m" />
+          -->
+          <field name="state" widget="statusbar_duration" options="{'clickable': '1', 'fold_field': 'fold'}" />
+        </header>
+        <sheet>
+          <group>
+            <field name="name" />
+            <field name="task_type" />
+            <field name="priority" />
+          </group>
+          <notebook>
+            <page string="Description" id="desc">
+              <field name="description" />
+            </page>
+            <page string="Process Data" id="process">
+              <field name="process_data" />
+            </page>
+            <page string="Action &amp; Menu" id="action">
+              <field name="action" />
+              <field name="menu" />
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+</odoo>
