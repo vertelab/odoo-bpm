@@ -1,15 +1,797 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
+# 	* bpm_workflow
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 18.0-20250826\n"
+"Project-Id-Version: Odoo Server 18.0-20251014\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-27 11:41+0000\n"
-"PO-Revision-Date: 2025-08-27 11:41+0000\n"
+"POT-Creation-Date: 2025-10-20 11:36+0000\n"
+"PO-Revision-Date: 2025-10-20 13:49+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "<span class=\"o_stat_text\">Requirements</span>"
+msgstr "<span class=\"o_stat_text\">Krav</span>"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "<span class=\"o_stat_text\">Tasks</span>"
+msgstr "<span class=\"o_stat_text\">Uppgifter</span>"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__action
+msgid "Action"
+msgstr "Åtgärd"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_form
+msgid "Action & Menu"
+msgstr "Åtgärd & meny"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_needaction
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_needaction
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_needaction
+msgid "Action Needed"
+msgstr "Åtgärder krävs"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__active
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_ids
+msgid "Activities"
+msgstr "Aktiviteter"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_exception_decoration
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_exception_decoration
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Aktivitet Undantag Dekoration"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_state
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_state
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_state
+msgid "Activity State"
+msgstr "Aktivitet Stat"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_type_icon
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_type_icon
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Aktivitetstyp Ikon"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_workflow__state__approved
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Approved"
+msgstr "Godkänd"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__approved_by_id
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Approved By"
+msgstr "Godkänd av"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "Archived"
+msgstr "Arkiverad"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_attachment_count
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_attachment_count
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_attachment_count
+msgid "Attachment Count"
+msgstr "Antal bifogade filer"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__user_id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__author_id
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Author"
+msgstr "Författaren"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_kanban
+msgid "Author:"
+msgstr "Författare:"
+
+#. module: bpm_workflow
+#: model:ir.actions.act_window,name:bpm_workflow.action_bpm_workflow
+msgid "BMP Workflows"
+msgstr "BMP-arbetsflöden"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__bpm_id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__bpm_id
+#: model:ir.ui.menu,name:bpm_workflow.menu_bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "BPM"
+msgstr "BPM"
+
+#. module: bpm_workflow
+#: model:res.groups,name:bpm_workflow.group_bpm_manager
+msgid "BPM Administrator"
+msgstr "BPM-administratör"
+
+#. module: bpm_workflow
+#: model:ir.model,name:bpm_workflow.model_bpm_requirement
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_requirement_form
+msgid "BPM Requirement"
+msgstr "BPM-krav"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_requirement_search
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_requirement_tree
+msgid "BPM Requirements"
+msgstr "BPM-krav"
+
+#. module: bpm_workflow
+#: model:ir.model,name:bpm_workflow.model_bpm_task
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_form
+msgid "BPM Task"
+msgstr "BPM-uppgift"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_search
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_tree
+msgid "BPM Tasks"
+msgstr "BPM-uppgifter"
+
+#. module: bpm_workflow
+#: model:res.groups,name:bpm_workflow.group_bpm_user
+msgid "BPM User"
+msgstr "BPM-användare"
+
+#. module: bpm_workflow
+#: model:ir.model,name:bpm_workflow.model_bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_requirement_search
+msgid "BPM Workflow"
+msgstr "BPM-arbetsflöde"
+
+#. module: bpm_workflow
+#: model:ir.ui.menu,name:bpm_workflow.menu_bpm_workflow_root
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Business Process Management"
+msgstr "Hantering av affärsprocesser"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_calendar
+msgid "Business Process Management Calendar"
+msgstr "Kalender för hantering av affärsprocesser"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_tree
+msgid "Business Process Managements"
+msgstr "Hantering av affärsprocesser"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__closed_requirements_count
+msgid "Closed Requirements"
+msgstr "Stängda krav"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__closed_tasks_count
+msgid "Closed Tasks"
+msgstr "Avslutade uppgifter"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__company_id
+msgid "Company"
+msgstr "Företag"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__decision_type__domain
+msgid "Conditions"
+msgstr "Villkor"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_requirement__priority__could
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__priority__could
+msgid "Could"
+msgstr "Kan"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__create_uid
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__create_uid
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__create_uid
+msgid "Created by"
+msgstr "Skapad av"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__create_date
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__create_date
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__create_date
+msgid "Created on"
+msgstr "Skapad den"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__date
+msgid "Date"
+msgstr "Datum"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_kanban
+msgid "Date:"
+msgstr "Datum:"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__decision_type
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__task_type__decision
+msgid "Decision"
+msgstr "Beslut"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__dependencies
+msgid "Dependencies"
+msgstr "Beroenden"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_workflow__state__deprecated
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Deprecated"
+msgstr "Föråldrad"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__description
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__description
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__description
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_requirement_form
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_form
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "Description"
+msgstr "Beskrivning"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__mermaid_diagram
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__mermaid_diagram
+#: model:ir.model.fields,field_description:bpm_workflow.field_mermaid_mixin__mermaid_diagram
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "Diagram"
+msgstr "Diagram"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "Diagram Editor"
+msgstr "Diagramredigerare"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__display_name
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__display_name
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__display_name
+msgid "Display Name"
+msgstr "Visningsnamn"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__state__done
+msgid "Done"
+msgstr "Klar"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__state__draft
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_workflow__state__draft
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Draft"
+msgstr "Utkast"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__duration_tracking
+msgid "Duration Tracking"
+msgstr "Uppföljning av varaktighet"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__mermaid_editor
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__mermaid_editor
+#: model:ir.model.fields,field_description:bpm_workflow.field_mermaid_mixin__mermaid_editor
+msgid "Editor"
+msgstr "Redaktör"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__task_type__end
+msgid "Endpoint"
+msgstr "Slutpunkt"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_follower_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_follower_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_follower_ids
+msgid "Followers"
+msgstr "Följare"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_partner_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_partner_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Följare (Partners)"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__activity_type_icon
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__activity_type_icon
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Font awesome-ikon, t.ex. fa-tasks"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_requirement__req_type__func
+msgid "Funtional"
+msgstr "Funktionell"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__goals
+msgid "Goal"
+msgstr "Mål"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "Goals"
+msgstr "Mål"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_requirement_search
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_search
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Group By"
+msgstr "Gruppera efter"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__has_message
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__has_message
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__has_message
+msgid "Has Message"
+msgstr "Har meddelande"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__id
+msgid "ID"
+msgstr "ID"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_exception_icon
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_exception_icon
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_exception_icon
+msgid "Icon"
+msgstr "Ikon"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__activity_exception_icon
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__activity_exception_icon
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Ikon för att indikera en undantagsaktivitet."
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__message_needaction
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__message_needaction
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Om den är markerad kräver nya meddelanden din uppmärksamhet."
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__message_has_error
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__message_has_sms_error
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__message_has_error
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__message_has_sms_error
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__message_has_error
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Om kryssrutan är markerad får vissa meddelanden ett leveransfel."
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_is_follower
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_is_follower
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_is_follower
+msgid "Is Follower"
+msgstr "Är följare"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__write_uid
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__write_uid
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__write_uid
+msgid "Last Updated by"
+msgstr "Senast uppdaterad av"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__write_date
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__write_date
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__write_date
+msgid "Last Updated on"
+msgstr "Senast uppdaterad den"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "Major Version"
+msgstr "Större version"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__decision_type__man
+msgid "Manual"
+msgstr "Manuell"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__menu
+msgid "Menu"
+msgstr "Meny"
+
+#. module: bpm_workflow
+#: model:ir.model,name:bpm_workflow.model_mermaid_mixin
+msgid "Mermaid Diagram Mixin"
+msgstr "Mermaid Diagram Mixin"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_has_error
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_has_error
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_has_error
+msgid "Message Delivery error"
+msgstr "Fel vid leverans av meddelande"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_ids
+msgid "Messages"
+msgstr "Meddelanden"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "Minor Version"
+msgstr "Mindre version"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_workflow__document_type__module
+msgid "Module"
+msgstr "Modul"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_requirement__priority__must
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__priority__must
+msgid "Must"
+msgstr "Måste"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__my_activity_date_deadline
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__my_activity_date_deadline
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Min aktivitet Deadline"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "My Workflows (author)"
+msgstr "Mina arbetsflöden (författare)"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "My Workflows (owner)"
+msgstr "Mina arbetsflöden (ägare)"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__name
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__name
+msgid "Name"
+msgstr "Namn"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_calendar_event_id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_calendar_event_id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr "Nästa aktivitet i aktivitetskalendern"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_date_deadline
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_date_deadline
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Deadline för nästa aktivitet"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_summary
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_summary
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_summary
+msgid "Next Activity Summary"
+msgstr "Nästa aktivitetsöversikt"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_type_id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_type_id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_type_id
+msgid "Next Activity Type"
+msgstr "Nästa aktivitetstyp"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__non_conformity_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__non_conformity_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__non_conformity_ids
+msgid "Non Conformity"
+msgstr "Icke-överensstämmelse"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__non_conformity_count
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__non_conformity_count
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__non_conformity_count
+msgid "Non Conformity Count"
+msgstr "Non Conformity Count"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_requirement__req_type__non-func
+msgid "Non Functional"
+msgstr "Icke-funktionell"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_needaction_counter
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_needaction_counter
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Antal åtgärder"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_has_error_counter
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_has_error_counter
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_has_error_counter
+msgid "Number of errors"
+msgstr "Antal fel"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__message_needaction_counter
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__message_needaction_counter
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Antal meddelanden som kräver åtgärder"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__message_has_error_counter
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__message_has_error_counter
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Antal meddelanden med leveransfel"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__state__ongoing
+msgid "Ongoing"
+msgstr "Pågående"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_workflow__document_type__other
+msgid "Other"
+msgstr "Övriga"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__parent_id
+msgid "Parent BPM"
+msgstr "Förälder BPM"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Parent Process"
+msgstr "Föräldraprocess"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__parent_id
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_search
+msgid "Parent Task"
+msgstr "Föräldrarnas uppgift"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__priority
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__priority
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_requirement_search
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_search
+msgid "Priority"
+msgstr "Prioritet"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__process_data
+msgid "Process"
+msgstr "Process"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_form
+msgid "Process Data"
+msgstr "Processdata"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__process_owner_id
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Process Owner"
+msgstr "Processägare"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__prompt
+msgid "Prompt"
+msgstr "Frågeställning"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__description
+msgid "Purpuse"
+msgstr "Syfte"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__rating_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__rating_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__rating_ids
+msgid "Ratings"
+msgstr "Betyg"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_workflow__state__rejected
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "Rejected"
+msgstr "Avvisad"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__requirement_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__requirement_ids
+msgid "Requirements"
+msgstr "Krav och önskemål"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__requirements_percentage
+msgid "Requirements Completion %"
+msgstr "Kravuppfyllelse %."
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__activity_user_id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__activity_user_id
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__activity_user_id
+msgid "Responsible User"
+msgstr "Ansvarig användare"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__risks
+msgid "Risks"
+msgstr "Risker"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__message_has_sms_error
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__message_has_sms_error
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Fel vid leverans av SMS"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__sequence
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__sequence
+msgid "Sequence"
+msgstr "Sekvens"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_requirement__priority__should
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__priority__should
+msgid "Should"
+msgstr "Bör"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__task_type__start
+msgid "Startpoint"
+msgstr "Startpunkt"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__state
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__state
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_search
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
+msgid "State"
+msgstr "Stat"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__activity_state
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__activity_state
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status baserad på aktiviteter\n"
+"Försenad: Förfallodatumet har redan passerats\n"
+"Idag: Aktivitetsdatumet är idag\n"
+"Planerad: Framtida aktiviteter."
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "Success Criteras/Risks"
+msgstr "Framgång Kriterier/Risker"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__success_criteria
+msgid "Success Criteria"
+msgstr "Kriterier för framgång"
+
+#. module: bpm_workflow
+#: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_task__task_type__task
+msgid "Task"
+msgstr "Uppgift"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__task_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__task_ids
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_requirement_form
+msgid "Tasks"
+msgstr "Uppgifter"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__tasks_percentage
+msgid "Tasks Completion %"
+msgstr "Uppgifter slutförda %"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__task_ids
+msgid "Tasks that implement this requirement"
+msgstr "Uppgifter som implementerar detta krav"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__name
+msgid "Titel"
+msgstr "Titel"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__requirements_count
+msgid "Total Requirements"
+msgstr "Totala krav"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__tasks_count
+msgid "Total Tasks"
+msgstr "Totalt antal uppgifter"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__req_type
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__task_type
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__document_type
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_requirement_search
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_search
+msgid "Type"
+msgstr "Typ"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__activity_exception_decoration
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__activity_exception_decoration
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Typ av undantagsaktivitet som registreras."
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__version
+msgid "Version"
+msgstr "Version"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__website_message_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_task__website_message_ids
+#: model:ir.model.fields,field_description:bpm_workflow.field_bpm_workflow__website_message_ids
+msgid "Website Messages"
+msgstr "Webbplatsmeddelanden"
+
+#. module: bpm_workflow
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_requirement__website_message_ids
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_task__website_message_ids
+#: model:ir.model.fields,help:bpm_workflow.field_bpm_workflow__website_message_ids
+msgid "Website communication history"
+msgstr "Webbplatsens kommunikationshistorik"
+
+#. module: bpm_workflow
+#: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_form
+msgid "e.g. Office Party"
+msgstr "t.ex. Office Party"
