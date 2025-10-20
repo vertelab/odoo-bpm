@@ -190,7 +190,7 @@
       </field>
     </record>
     <record id="action_bpm_workflow" model="ir.actions.act_window">
-      <field name="name">BPM Workflows</field>
+      <field name="name">BMP Workflows</field>
       <field name="res_model">bpm.workflow</field>
       <field name="view_mode">kanban,list,form,calendar</field>
       <field name="view_id" ref="view_bpm_workflow_kanban" />
