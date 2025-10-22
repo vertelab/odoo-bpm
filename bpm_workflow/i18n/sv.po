@@ -116,7 +116,7 @@ msgstr "Författare:"
 #. module: bpm_workflow
 #: model:ir.actions.act_window,name:bpm_workflow.action_bpm_workflow
 msgid "BMP Workflows"
-msgstr "BMP-arbetsflöden"
+msgstr "BPM-arbetsflöden"
 
 #. module: bpm_workflow
 #: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__bpm_id
