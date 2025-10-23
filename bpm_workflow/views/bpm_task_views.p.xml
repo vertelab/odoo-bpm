@@ -65,7 +65,23 @@
             <page string="Process Data" id="process">
               <field name="process_data" />
             </page>
-
+<!--
+ <page string="Requirements">
+              <field name="requirement_ids" context="{
+    'default_func_id': id,
+    'default_prd_id': prd_id
+}">
+                <list string="Requirements" editable="bottom">
+                  <field name="sequence" widget="handle" />
+                  <field name="_id" context="{
+    'default_bpm_id': bpm_id
+}" />
+                  <field name="task_type" />
+                  <field name="state" />
+                </list>
+              </field>
+            </page>
+-->
           </notebook>
         </sheet>
       </form>
