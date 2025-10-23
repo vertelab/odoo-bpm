@@ -84,7 +84,6 @@
             <group col="2">
             <group id="c1">
               <field name="parent_id" />
-              <field name="document_type" />
               <field name="version"  class="oe_inline"/>
               <field name="date"  class="oe_inline"/>
               <field name="author_id" />

@@ -140,12 +140,6 @@ class BPMWorkflow(models.Model):
     success_criteria = fields.Text(string="Success Criteria")
     dependencies = fields.Text(string="Dependencies")
     risks = fields.Text(string="Risks")
-    document_type = fields.Selection([
-        ('module', 'Module'),
-        ('other', 'Other')],
-        string="Type",
-        default='module',
-    )
     state = fields.Selection([
         ('draft', 'Draft'),
         ('approved', 'Approved'),
@@ -165,7 +159,8 @@ class BPMWorkflow(models.Model):
     tasks_count = fields.Integer(string="Total Tasks", compute='_compute_Tasks_counts')
     closed_tasks_count = fields.Integer(string="Closed Tasks", compute='_compute_Tasks_counts')
     tasks_percentage = fields.Float(string="Tasks Completion %", compute='_compute_Tasks_counts')
-
+    
+    
     @api.onchange('state')
     def _onchange_state(self):
         if self.state == 'approved':
@@ -218,6 +213,7 @@ class BPMWorkflow(models.Model):
           'res_model': 'bpm.task',
           'domain': [('bpm_id', '=', self.id)],
           'view_mode': 'list,form',
+          'context': {'default_bpm_id': self.id},
           'target': 'current',
       }
 
@@ -228,6 +224,7 @@ class BPMWorkflow(models.Model):
           'res_model': 'bpm.requirement',
           'domain': [('bpm_id', '=', self.id)],
           'view_mode': 'list,form',
+          'context': {'default_bpm_id': self.id},
           'target': 'current',
       }
 
@@ -239,23 +236,16 @@ class BPMTask(models.Model):
 
     parent_id = fields.Many2one(comodel_name='bpm.task',string="Parent Task",help="") 
     description = fields.Text(string="Description")
+    duration_tracking = fields.Float(string='Duration Tracking')
     name = fields.Char(string="Name", required=True)
     process_data = fields.Text(string="Process")
-    priority = fields.Selection([
-        ('must', 'Must'),
-        ('should', 'Should'),
-        ('could', 'Could')
-    ], string="Priority", default='must')
     bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
-    prompt = fields.Text(string="Prompt")
     requirement_ids = fields.One2many(
         comodel_name='bpm.requirement',
         inverse_name='bpm_id',
         string="Requirements",
         help=""
     )
-    action = fields.Text(string='Action')
-    menu = fields.Text(string='Menu')
     sequence = fields.Integer(string='Sequence')
     state = fields.Selection([
         ('draft', 'Draft'),
