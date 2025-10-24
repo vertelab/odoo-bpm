@@ -15,24 +15,17 @@ class BPMTask(models.Model):
     _description = 'BPM Task'
     _order = "sequence desc"
 
+    bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
     parent_id = fields.Many2one(comodel_name='bpm.task',string="Parent Task",help="")
+    child_ids = fields.One2many(comodel_name="bpm.task",inverse_name="parent_id")
     description = fields.Text(string="Description")
     duration_tracking = fields.Float(string='Duration Tracking')
     image_128 = fields.Image("Image", max_width=128, max_height=128)
     name = fields.Char(string="Name", required=True)
     process_data = fields.Text(string="Process")
-
-    bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
     requirement_ids = fields.One2many(comodel_name='bpm.requirement.task', inverse_name='task_id')
     requirement_names_ids = fields.Many2many(comodel_name='bpm.requirement', string="Requirement",
                                              compute='_compute_requirement_names_ids')
-
-    @api.depends('requirement_ids.task_id')
-    def _compute_requirement_names_ids(self):
-        for record in self:
-            record.requirement_names_ids = record.requirement_ids.mapped('req_id')
-
-
     sequence = fields.Integer(string='Sequence')
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -54,10 +47,13 @@ class BPMTask(models.Model):
         ('chatter', 'Chatter'),
         ('code', 'Code'),
     ], string="Trigger", default='chatter')
-
     res_model = fields.Char(index=True)
     res_id = fields.Integer(index=True)
-
     model_id = fields.Many2one(comodel_name='ir.model', string="Model")
     model_name = fields.Char(related='model_id.model', string='Model Name', readonly=True, store=True)
     filter_domain = fields.Char(string='Domain')
+
+    @api.depends('requirement_ids.task_id')
+    def _compute_requirement_names_ids(self):
+        for record in self:
+            record.requirement_names_ids = record.requirement_ids.mapped('req_id')
