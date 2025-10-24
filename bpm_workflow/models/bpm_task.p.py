@@ -17,6 +17,7 @@ class BPMTask(models.Model):
     _description = 'BPM Task'
     _order = "sequence desc"
 
+    active = fields.Boolean(string='Active', default=True)
     bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
     parent_id = fields.Many2one(comodel_name='bpm.task',string="Parent Task",help="")
     child_ids = fields.One2many(comodel_name="bpm.task",inverse_name="parent_id")
@@ -59,7 +60,7 @@ class BPMTask(models.Model):
     def _compute_requirement_names_ids(self):
         for record in self:
             record.requirement_names_ids = record.requirement_ids.mapped('req_id')
-            
+
     @api.depends('task_type')
     def _compute_image_128(self):
         """Set image based on task type"""

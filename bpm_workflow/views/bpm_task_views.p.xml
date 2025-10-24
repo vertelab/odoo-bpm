@@ -43,9 +43,16 @@
                     <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
                 </header>
                 <sheet>
-                    <field name="image_128" widget="image" class="oe_avatar"/>
+                    <div class="oe_button_box" name="button_box" groups="base.group_user" />
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active" />
+                    <field name="image_128" nolabel="1" widget="image" class="oe_avatar me-3" style="width: 128px; height: 128px; flex: 0 0 auto;"/>
+                    <div class="oe_title flex-grow-1 w-80">
+                        <label for="name" string="Name"/>
+                        <h1 class="d-flex flex-row">
+                            <field name="name" options="{'line_breaks': False}" widget="text" class="w-80 flex-grow-1 o_text_overflow" placeholder="e.g. Task" />
+                        </h1>
+                    </div>
                     <group>
-                        <field name="name" />
                         <field name="task_type" />
                         <field name="trigger_type" />
 
@@ -59,6 +66,16 @@
                         </page>
                         <page string="Process Data" id="process">
                             <field name="process_data" />
+                        </page>
+                        <page string="Requirements" id="requirements">
+                            <field name="requirement_ids" context="{'default_task_id': id,'default_bpm_id': bpm_id}">
+                                <list string="Requirements" editable="bottom">
+                                    <field name="sequence" widget="handle" />
+                                    <field name="req_id" context="{'default_bpm_id': bpm_id}" />
+                                    <field name="req_type" />
+                                    <field name="req_state" />
+                                </list>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
@@ -83,27 +100,21 @@
                     </t>
                     <t t-name="card" class="flex-row align-items-center">
                         <aside>
-<!--                            <field name="image_128" widget="image_128" options="{'size': [128, 128]}" alt="Icon" />-->
+                            <!--                            <field name="image_128" widget="image_128" options="{'size': [128, 128]}" alt="Icon" />-->
                             <field name="image_128" alt="Contact image" widget="image" options="{'img_class': 'object-fit-cover'}" />
                         </aside>
 
-                        <main class="me-4" >
-                            <widget name="web_ribbon" title="Done"
-                                  bg_color="bg-success" icon="fa-times"
-                                  invisible="state != 'done'"/>
+                        <main class="me-4">
+                            <widget name="web_ribbon" title="Done" bg_color="bg-success" icon="fa-times" invisible="state != 'done'"/>
 
-                          <widget name="web_ribbon" title="Ongoing"
-                                  bg_color="bg-warning" icon="fa-file-text"
-                                  invisible="state != 'ongoing'"/>
+                            <widget name="web_ribbon" title="Ongoing" bg_color="bg-warning" icon="fa-file-text" invisible="state != 'ongoing'"/>
 
-                          <widget name="web_ribbon" title="Draft"
-                                  bg_color="bg-danger" icon="fa-times"
-                                  invisible="state != 'draft'"/>
+                            <widget name="web_ribbon" title="Draft" bg_color="bg-danger" icon="fa-times" invisible="state != 'draft'"/>
 
                             <field class="fw-bold fs-5" name="name" />
                             <p class="text-muted small my-0 lh-sm">
                                 <div>
-                                    <field name="requirement_names_ids" widget="many2many_tags"  />
+                                    <field name="requirement_names_ids" widget="many2many_tags" />
                                 </div>
                             </p>
                             <footer class="w-100 justify-content-between">

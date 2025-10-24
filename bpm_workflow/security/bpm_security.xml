@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-
     <record id="group_bpm_user" model="res.groups">
         <field name="name">BPM User</field>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
@@ -14,7 +13,5 @@
         <field name="implied_ids" eval="[(4, ref('group_bpm_user')),]"/>
         <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
     </record>
-
-   
 
 </odoo>

@@ -51,8 +51,15 @@
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box" groups="base.group_user" />
+                        <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active" />
+                        <div class="oe_title flex-grow-1 w-80">
+                            <label for="name" string="Name"/>
+                            <h1 class="d-flex flex-row">
+                                <field name="name" options="{'line_breaks': False}" widget="text" class="w-80 flex-grow-1 o_text_overflow" placeholder="e.g. Requirement" />
+                                <field name="priority" class="ms-3 text-end" style="width: 7em; font-size: 0.7em; line-height: 2;" />
+                            </h1>
+                        </div>
                         <group>
-                            <field name="name" required="1"/>
                             <field name="priority"/>
                             <field name="req_type"/>
                             <field name="sequence"/>
@@ -63,7 +70,14 @@
                                 <field name="description" nolabel="1"/>
                             </page>
                             <page string="Tasks">
-                                <field name="task_ids" widget="many2many_tags"/>
+                                <field name="task_ids" context="{'default_req_id': id,'default_bpm_id': bpm_id}">
+                                    <list string="Task" editable="bottom">
+                                        <field name="sequence" widget="handle" />
+                                        <field name="task_id" context="{'default_bpm_id': bpm_id}" />
+                                        <field name="task_type" />
+                                        <field name="task_state" />
+                                    </list>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
