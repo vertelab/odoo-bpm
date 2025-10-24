@@ -43,6 +43,7 @@
                     <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
                 </header>
                 <sheet>
+                    <field name="image_128" widget="image" class="oe_avatar"/>
                     <group>
                         <field name="name" />
                         <field name="task_type" />
@@ -78,7 +79,7 @@
                 <field name="parent_id"/>
                 <templates>
                     <t t-name="menu">
-                        <a type="open" class="dropdown-item">Module Info</a>
+                        <a type="open" class="dropdown-item">More Info</a>
                     </t>
                     <t t-name="card" class="flex-row align-items-center">
                         <aside>
