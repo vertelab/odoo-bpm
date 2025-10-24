@@ -49,9 +49,9 @@ class BPMWorkflow(models.Model):
     closed_requirements_count = fields.Integer(string="Closed Requirements", compute='_compute_requirements_counts')
     requirements_percentage = fields.Float(string="Requirements Completion %", compute='_compute_requirements_counts')
 
-    tasks_count = fields.Integer(string="Total Tasks", compute='_compute_Tasks_counts')
-    closed_tasks_count = fields.Integer(string="Closed Tasks", compute='_compute_Tasks_counts')
-    tasks_percentage = fields.Float(string="Tasks Completion %", compute='_compute_Tasks_counts')
+    tasks_count = fields.Integer(string="Total Tasks", compute='_compute_tasks_counts')
+    closed_tasks_count = fields.Integer(string="Closed Tasks", compute='_compute_tasks_counts')
+    tasks_percentage = fields.Float(string="Tasks Completion %", compute='_compute_tasks_counts')
     
     
     @api.onchange('state')
@@ -63,7 +63,7 @@ class BPMWorkflow(models.Model):
             self.approved_by_id = False
 
     @api.depends('task_ids')
-    def _compute_Tasks_counts(self):
+    def _compute_tasks_counts(self):
         for record in self:
             total = len(record.task_ids)
             closed = len(record.task_ids.filtered(lambda f: f.state == 'done'))
@@ -108,116 +108,16 @@ class BPMWorkflow(models.Model):
           'view_mode': 'kanban,list,form',
           'context': {'default_bpm_id': self.id},
           'target': 'current',
-          'context': {
-              'default_bom_id': self.id
-          }
       }
 
     def action_requirements(self):
-      return {
-          'type': 'ir.actions.act_window',
-          'name': 'Requirements',
-          'res_model': 'bpm.requirement',
-          'domain': [('bpm_id', '=', self.id)],
-          'view_mode': 'list,form',
-          'context': {'default_bpm_id': self.id},
-          'target': 'current',
-      }
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Requirements',
+            'res_model': 'bpm.requirement',
+            'domain': [('bpm_id', '=', self.id)],
+            'view_mode': 'list,form',
+            'context': {'default_bpm_id': self.id},
+            'target': 'current',
+        }
 
-
-
-class BPMTask(models.Model):
-    _name = 'bpm.task'
-    _inherit = ['mermaid.mixin', 'mail.thread', 'mail.activity.mixin']
-    _description = 'BPM Task'
-    _order = "sequence desc"
-
-    parent_id = fields.Many2one(comodel_name='bpm.task',string="Parent Task",help="") 
-    description = fields.Text(string="Description")
-    duration_tracking = fields.Float(string='Duration Tracking')
-    image_128 = fields.Image("Image", max_width=128, max_height=128)
-    name = fields.Char(string="Name", required=True)
-    process_data = fields.Text(string="Process")
-    bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
-    requirement_ids = fields.One2many(comodel_name='bpm.requirement.task', inverse_name='task_id')
-    requirement_names_ids = fields.Many2many(comodel_name='bpm.requirement',string="Requirement",compute='_compute_requirement_names_ids') 
-    @api.depends('requirement_ids.task_id')
-    def _compute_requirement_names_ids(self):
-        for record in self:
-            record.requirement_names_ids = record.requirement_ids.mapped('req_id')
-
-    
-    sequence = fields.Integer(string='Sequence')
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('ongoing', 'Ongoing'),
-        ('done', 'Done')
-    ], string="State", default='draft')
-    task_type = fields.Selection([
-        ('task', 'Task'),
-        ('end', 'Endpoint'),
-        ('start', 'Startpoint'),
-        ('decision', 'Decision'),
-    ], string="Type", default='task')
-    decision_type = fields.Selection([
-        ('man', 'Manual'),
-        ('domain', 'Conditions'),
-    ], string="Decision", default='man')
-    user_id = fields.Many2one(comodel_name='res.users',string="Author",help="")
-
-class BPMRequirementTask(models.Model):
-    _name = 'bpm.requirement.task'
-    _description = 'BPM Request Task'
-    _order = "sequence asc"
-
-    task_id = fields.Many2one(comodel_name='bpm.task', string="Task", help="", ondelete='cascade')
-    req_id = fields.Many2one(comodel_name='bpm.requirement', string="", help="", ondelete='cascade')
-    prd_id = fields.Many2one(comodel_name='bpm.document', string="", help="", ondelete='cascade')
-    task_type = fields.Selection(related="task_id.task_type",string='Taks Type')
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('ongoing', 'Ongoing'),
-        ('done', 'Done')
-    ], string="State", default='draft')    
-    sequence = fields.Integer(string='Sequence')
-
-
-class BPMRequirement(models.Model):
-    _name = 'bpm.requirement'
-    _inherit = ['mail.thread', 'mail.activity.mixin']
-    _description = 'BPM Requirement'
-    _order = "sequence desc"
-
-    description = fields.Text(string="Description")
-    duration_tracking = fields.Float(string='Duration Tracking')
-
-    task_ids = fields.Many2many(
-        comodel_name='bpm.task',
-        string='Tasks',
-        help="Tasks that implement this requirement",
-        compute='_compute_task_ids',
-        store=True
-    )
-    bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
-    name = fields.Char(string="Name", required=True)
-    priority = fields.Selection([
-        ('must', 'Must'),
-        ('should', 'Should'),
-        ('could', 'Could')
-    ], string="Priority", default='must')
-    sequence = fields.Integer(string='Sequence')
-    state = fields.Selection([
-        ('draft', 'Draft'),
-        ('ongoing', 'Ongoing'),
-        ('done', 'Done')
-    ], string="State", default='draft')
-    req_type = fields.Selection([
-        ('func', 'Funtional'),
-        ('non-func', 'Non Functional'),
-    ], string="Type", default='func')
-
-    @api.depends('bpm_id.task_ids')
-    def _compute_task_ids(self):
-        for requirement in self:
-            Tasks = self.env['bpm.task'].search([('requirement_ids', 'in', requirement.id)])
-            requirement.task_ids = [(6, 0, [f.id for f in Tasks])]
