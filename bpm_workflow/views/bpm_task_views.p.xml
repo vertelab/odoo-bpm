@@ -87,4 +87,72 @@
       </form>
     </field>
   </record>
+  
+  <!-- Kanban View -->
+  <record id="view_prd_function_kanban" model="ir.ui.view">
+    <field name="name">bpm.task.kanban</field>
+    <field name="model">bpm.task</field>
+    <field name="arch" type="xml">
+      <kanban>
+        <field name="name" />
+        <field name="state" />
+        <field name="task_type" />
+        <field name="requirement_ids" />
+        <field name="requirement_names_ids" />
+        <field name="image_128" />
+        <field name="user_id" />
+        <templates>
+          <t t-name="menu">
+   
+            
+            <a type="open" class="dropdown-item">Module Info</a>
+            <a t-if="record.website.raw_value" role="menuitem" class="dropdown-item o-hidden-ios" t-att-href="record.website.raw_value" target="_blank">Learn More</a>
+          </t>
+          <t t-name="card" class="flex-row align-items-center">
+            <aside>
+              <field name="image_128" widget="image_128" options="{'size': [128, 128]}" alt="Icon" />                              
+            </aside>
+            <main class="me-4" >
+                
+      <widget name="web_ribbon" title="Done"
+              bg_color="bg-success" icon="fa-times"
+              invisible="state != 'done'"/>
+      
+      <widget name="web_ribbon" title="Ongoing"
+              bg_color="bg-warning" icon="fa-file-text"
+              invisible="state != 'ongoing'"/>
+      
+      <widget name="web_ribbon" title="Draft"
+              bg_color="bg-danger" icon="fa-times"
+              invisible="state != 'draft'"/>
+
+                
+              <field class="fw-bold fs-5" name="name" />
+              <p class="text-muted small my-0 lh-sm">
+    
+                <div>
+<!--
+                  <field name="category_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_edit_color': true}" />
+-->
+                  <field name="requirement_names_ids" widget="many2many_tags"  />
+                                    
+                </div>
+              
+              </p>
+              <footer class="w-100 justify-content-between">
+                    
+        <field name="user_id" widget="many2one_avatar_user" />
+        <field name="task_type" />
+
+                 <field name="activity_ids" class="float-end" widget="kanban_activity"/>
+                
+              </footer>
+            </main>
+          </t>
+
+        </templates>
+      </kanban>
+    </field>
+  </record>
+  
 </odoo>

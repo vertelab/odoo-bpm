@@ -105,7 +105,7 @@ class BPMWorkflow(models.Model):
           'name': 'Tasks',
           'res_model': 'bpm.task',
           'domain': [('bpm_id', '=', self.id)],
-          'view_mode': 'list,form',
+          'view_mode': 'kanban,list,form',
           'context': {'default_bpm_id': self.id},
           'target': 'current',
       }
@@ -121,6 +121,8 @@ class BPMWorkflow(models.Model):
           'target': 'current',
       }
 
+
+
 class BPMTask(models.Model):
     _name = 'bpm.task'
     _inherit = ['mermaid.mixin', 'mail.thread', 'mail.activity.mixin']
@@ -130,15 +132,18 @@ class BPMTask(models.Model):
     parent_id = fields.Many2one(comodel_name='bpm.task',string="Parent Task",help="") 
     description = fields.Text(string="Description")
     duration_tracking = fields.Float(string='Duration Tracking')
+    image_128 = fields.Image("Image", max_width=128, max_height=128)
     name = fields.Char(string="Name", required=True)
     process_data = fields.Text(string="Process")
     bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
-    requirement_ids = fields.One2many(
-        comodel_name='bpm.requirement',
-        inverse_name='bpm_id',
-        string="Requirements",
-        help=""
-    )
+    requirement_ids = fields.One2many(comodel_name='bpm.requirement.task', inverse_name='task_id')
+    requirement_names_ids = fields.Many2many(comodel_name='bpm.requirement',string="Requirement",compute='_compute_requirement_names_ids') 
+    @api.depends('requirement_ids.task_id')
+    def _compute_requirement_names_ids(self):
+        for record in self:
+            record.requirement_names_ids = record.requirement_ids.mapped('req_id')
+
+    
     sequence = fields.Integer(string='Sequence')
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -156,6 +161,23 @@ class BPMTask(models.Model):
         ('domain', 'Conditions'),
     ], string="Decision", default='man')
     user_id = fields.Many2one(comodel_name='res.users',string="Author",help="")
+
+class BPMRequirementTask(models.Model):
+    _name = 'bpm.requirement.task'
+    _description = 'BPM Request Task'
+    _order = "sequence asc"
+
+    task_id = fields.Many2one(comodel_name='bpm.task', string="Task", help="", ondelete='cascade')
+    req_id = fields.Many2one(comodel_name='bpm.requirement', string="", help="", ondelete='cascade')
+    prd_id = fields.Many2one(comodel_name='bpm.document', string="", help="", ondelete='cascade')
+    task_type = fields.Selection(related="task_id.task_type",string='Taks Type')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('ongoing', 'Ongoing'),
+        ('done', 'Done')
+    ], string="State", default='draft')    
+    sequence = fields.Integer(string='Sequence')
+
 
 class BPMRequirement(models.Model):
     _name = 'bpm.requirement'
