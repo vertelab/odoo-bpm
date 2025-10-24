@@ -77,6 +77,12 @@
                                 </list>
                             </field>
                         </page>
+                        <page string="Diagram Editor" id="mermaid_editor">
+                            <field name="mermaid_editor" no-label="1" />
+                        </page>
+                        <page string="Diagram" id="mermaid_diagram">
+                            <field name="mermaid_diagram" widget="mermaid" no-label="1" />
+                        </page>
                     </notebook>
                 </sheet>
             </form>

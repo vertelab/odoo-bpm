@@ -1,16 +1,8 @@
-from datetime import datetime, timedelta 
+import logging
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError, AccessError
-import re
-import html
-from bs4 import BeautifulSoup
-
-import logging
 
 _logger = logging.getLogger(__name__)
-
-
-from odoo import models, fields
 
 
 class BPMWorkflow(models.Model):
@@ -43,8 +35,9 @@ class BPMWorkflow(models.Model):
         default='draft',
         tracking=True
     )
-    requirement_ids = fields.One2many(comodel_name='bpm.requirement',inverse_name='bpm_id',string="Requirements",help="") 
-    task_ids = fields.One2many(comodel_name='bpm.task',inverse_name='bpm_id',string="Tasks",help="") 
+    requirement_ids = fields.One2many(comodel_name='bpm.requirement', inverse_name='bpm_id', string="Requirements",
+                                      help="")
+    task_ids = fields.One2many(comodel_name='bpm.task', inverse_name='bpm_id', string="Tasks", help="")
 
     requirements_count = fields.Integer(string="Total Requirements", compute='_compute_requirements_counts')
     closed_requirements_count = fields.Integer(string="Closed Requirements", compute='_compute_requirements_counts')
@@ -53,8 +46,7 @@ class BPMWorkflow(models.Model):
     tasks_count = fields.Integer(string="Total Tasks", compute='_compute_tasks_counts')
     closed_tasks_count = fields.Integer(string="Closed Tasks", compute='_compute_tasks_counts')
     tasks_percentage = fields.Float(string="Tasks Completion %", compute='_compute_tasks_counts')
-    
-    
+
     @api.onchange('state')
     def _onchange_state(self):
         if self.state == 'approved':
@@ -76,13 +68,12 @@ class BPMWorkflow(models.Model):
     def _compute_requirements_counts(self):
         for record in self:
             total = len(record.requirement_ids)
-            closed = len(record.requirement_ids.filtered(lambda r: r.state == 'done'))  
+            closed = len(record.requirement_ids.filtered(lambda r: r.state == 'done'))
             record.requirements_count = total
             record.closed_requirements_count = closed
             record.requirements_percentage = 0.0
             if total > 0:
                 record.requirements_percentage = (closed / total) * 100
-
 
     def button_minor_version(self):
         for record in self:
@@ -101,15 +92,15 @@ class BPMWorkflow(models.Model):
             record.date = fields.Date.today()
 
     def action_tasks(self):
-      return {
-          'type': 'ir.actions.act_window',
-          'name': 'Tasks',
-          'res_model': 'bpm.task',
-          'domain': [('bpm_id', '=', self.id)],
-          'view_mode': 'kanban,list,form',
-          'context': {'default_bpm_id': self.id},
-          'target': 'current',
-      }
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Tasks',
+            'res_model': 'bpm.task',
+            'domain': [('bpm_id', '=', self.id)],
+            'view_mode': 'kanban,list,form',
+            'context': {'default_bpm_id': self.id},
+            'target': 'current',
+        }
 
     def action_requirements(self):
         return {
@@ -122,3 +113,18 @@ class BPMWorkflow(models.Model):
             'target': 'current',
         }
 
+    def _mermaid_prompt(self):
+        mermaid_prompt = super()._mermaid_prompt()
+
+        if self.task_ids:
+            tasks = "\nTasks:\n"
+            task_lines = [
+                f"- Name: {actor.name}" +
+                (f"\n  Role: {actor.role}" if hasattr(actor, 'role') and actor.role else "") +
+                (f"\n  Goal: {actor.goal}" if hasattr(actor, 'goal') and actor.goal else "")
+                for actor in self.task_ids
+            ]
+            tasks += "\n".join(task_lines)
+            mermaid_prompt += tasks
+
+        return mermaid_prompt
