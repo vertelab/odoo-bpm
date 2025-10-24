@@ -9,6 +9,22 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+class BPMRequirementTask(models.Model):
+    _name = 'bpm.requirement.task'
+    _description = 'BPM Request Task'
+    _order = "sequence asc"
+
+    task_id = fields.Many2one(comodel_name='bpm.task', string="Task", help="", ondelete='cascade')
+    req_id = fields.Many2one(comodel_name='bpm.requirement', string="", help="", ondelete='cascade')
+    prd_id = fields.Many2one(comodel_name='bpm.document', string="", help="", ondelete='cascade')
+    task_type = fields.Selection(related="task_id.task_type",string='Taks Type')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('ongoing', 'Ongoing'),
+        ('done', 'Done')
+    ], string="State", default='draft')
+    sequence = fields.Integer(string='Sequence')
+
 class BPMRequirement(models.Model):
     _name = 'bpm.requirement'
     _inherit = ['mail.thread', 'mail.activity.mixin']
@@ -31,10 +47,16 @@ class BPMRequirement(models.Model):
         ('could', 'Could')
     ], string="Priority", default='must')
     sequence = fields.Integer(string='Sequence')
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('ongoing', 'Ongoing'),
+        ('done', 'Done')
+    ], string="State", default='draft')
     req_type = fields.Selection([
-        ('func', 'Funtional'),
+        ('func', 'Functional'),
         ('non-func', 'Non Functional'),
     ], string="Type", default='func')
+
 
     @api.depends('bpm_id.task_ids')
     def _compute_task_ids(self):

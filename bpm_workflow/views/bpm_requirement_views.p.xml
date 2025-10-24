@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <odoo>
+    <data>
         <!-- Search View -->
         <record id="view_bpm_requirement_search" model="ir.ui.view">
             <field name="name">bpm.requirement.search</field>
@@ -46,7 +46,11 @@
             <field name="model">bpm.requirement</field>
             <field name="arch" type="xml">
                 <form string="BPM Requirement">
+                    <header>
+                        <field name="state" widget="statusbar_duration" options="{'clickable': '1', 'fold_field': 'fold'}" />
+                    </header>
                     <sheet>
+                        <div class="oe_button_box" name="button_box" groups="base.group_user" />
                         <group>
                             <field name="name" required="1"/>
                             <field name="priority"/>
@@ -66,7 +70,5 @@
                 </form>
             </field>
         </record>
-    </odoo>
-
-
+    </data>
 </odoo>

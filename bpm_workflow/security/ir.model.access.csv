@@ -5,3 +5,5 @@ access_bpm_task_user,bpm.task user,model_bpm_task,base.group_user,1,0,0,0
 access_bpm_task_manager,bpm.task manager,model_bpm_task,base.group_system,1,1,1,1
 access_bpm_requirement_user,bpm.requirement user,model_bpm_requirement,base.group_user,1,0,0,0
 access_bpm_requirement_manager,bpm.requirement manager,model_bpm_requirement,base.group_system,1,1,1,1
+access_bpm_requirement_task_user,prd.requirement user,model_bpm_requirement_task,base.group_user,1,0,0,0
+access_bpm_requirement_task_manager,prd.requirement manager,model_bpm_requirement_task,base.group_system,1,1,1,1

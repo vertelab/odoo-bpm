@@ -6,14 +6,12 @@
         <field name="arch" type="xml">
             <search string="BPM Tasks">
                 <field name="name" />
-                <field name="priority" />
                 <field name="state" />
                 <field name="user_id" />
                 <field name="parent_id" />
                 <group expand="1" string="Group By">
                     <filter string="Type" name="group_by_task_type" context="{'group_by':'task_type'}" />
                     <filter string="State" name="group_by_state" context="{'group_by':'state'}" />
-                    <filter string="Priority" name="group_by_priority" context="{'group_by':'priority'}" />
                     <filter string="Parent Task" name="group_by_parent" context="{'group_by':'parent_id'}" />
                 </group>
             </search>
@@ -27,7 +25,6 @@
             <list string="BPM Tasks">
                 <field name="sequence" widget="handle" />
                 <field name="name" />
-                <field name="priority" optional="show" />
                 <field name="state" optional="show" />
                 <field name="task_type" optional="hide" />
                 <field name="decision_type" optional="hide" />
@@ -49,7 +46,6 @@
                     <group>
                         <field name="name" />
                         <field name="task_type" />
-                        <field name="priority" />
                         <field name="trigger_type" />
 
                         <field name="model_id" />
@@ -62,10 +58,6 @@
                         </page>
                         <page string="Process Data" id="process">
                             <field name="process_data" />
-                        </page>
-                        <page string="Action &amp; Menu" id="action">
-                            <field name="action" />
-                            <field name="menu" />
                         </page>
                     </notebook>
                 </sheet>
@@ -90,14 +82,26 @@
                     </t>
                     <t t-name="card" class="flex-row align-items-center">
                         <aside>
-                            <field name="image_128" alt="Contact image" widget="image" options="{'img_class': 'object-fit-cover'}" />
+                            <field name="image_128" widget="image_128" options="{'size': [128, 128]}" alt="Icon" />
                         </aside>
 
                         <main class="me-4" >
+                            <widget name="web_ribbon" title="Done"
+                                  bg_color="bg-success" icon="fa-times"
+                                  invisible="state != 'done'"/>
+
+                          <widget name="web_ribbon" title="Ongoing"
+                                  bg_color="bg-warning" icon="fa-file-text"
+                                  invisible="state != 'ongoing'"/>
+
+                          <widget name="web_ribbon" title="Draft"
+                                  bg_color="bg-danger" icon="fa-times"
+                                  invisible="state != 'draft'"/>
+
                             <field class="fw-bold fs-5" name="name" />
                             <p class="text-muted small my-0 lh-sm">
                                 <div>
-                                    <field name="requirement_ids" />
+                                    <field name="requirement_names_ids" widget="many2many_tags"  />
                                 </div>
                             </p>
                             <footer class="w-100 justify-content-between">
@@ -121,14 +125,4 @@
 
     <menuitem id="menu_bpm_task" name="BPM Tasks" parent="bpm_workflow.menu_bpm_workflow" action="action_bpm_task" sequence="20" />
 
-<!--    <record model="ir.actions.act_window" id="open_mgmtsystem_nonconformity_thread_list">-->
-<!--        <field name="name">Nonconformities</field>-->
-<!--        <field name="res_model">bp.nonconformity</field>-->
-<!--        <field name="view_mode">kanban,list,form</field>-->
-<!--        <field name="domain">[('res_id', '=', id), ('res_model', '=', mgmtsystem_nonconformity)]</field>-->
-<!--        <field name="view_id" ref="view_mgmtsystem_nonconformity_kanban" />-->
-<!--        <field name="search_view_id" ref="view_mgmtsystem_nonconformity_filter" />-->
-<!--        <field name="context" >{"search_default_user_id":uid, "default_res_model": mgmtsystem_nonconformity, "default_res_id": id}-->
-<!--        </field>-->
-<!--    </record>-->
 </odoo>

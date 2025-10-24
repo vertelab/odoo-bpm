@@ -17,23 +17,22 @@ class BPMTask(models.Model):
 
     parent_id = fields.Many2one(comodel_name='bpm.task',string="Parent Task",help="")
     description = fields.Text(string="Description")
+    duration_tracking = fields.Float(string='Duration Tracking')
+    image_128 = fields.Image("Image", max_width=128, max_height=128)
     name = fields.Char(string="Name", required=True)
     process_data = fields.Text(string="Process")
-    priority = fields.Selection([
-        ('must', 'Must'),
-        ('should', 'Should'),
-        ('could', 'Could')
-    ], string="Priority", default='must')
+
     bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
-    prompt = fields.Text(string="Prompt")
-    requirement_ids = fields.One2many(
-        comodel_name='bpm.requirement',
-        inverse_name='bpm_id',
-        string="Requirements",
-        help=""
-    )
-    action = fields.Text(string='Action')
-    menu = fields.Text(string='Menu')
+    requirement_ids = fields.One2many(comodel_name='bpm.requirement.task', inverse_name='task_id')
+    requirement_names_ids = fields.Many2many(comodel_name='bpm.requirement', string="Requirement",
+                                             compute='_compute_requirement_names_ids')
+
+    @api.depends('requirement_ids.task_id')
+    def _compute_requirement_names_ids(self):
+        for record in self:
+            record.requirement_names_ids = record.requirement_ids.mapped('req_id')
+
+
     sequence = fields.Integer(string='Sequence')
     state = fields.Selection([
         ('draft', 'Draft'),
@@ -51,7 +50,6 @@ class BPMTask(models.Model):
         ('domain', 'Conditions'),
     ], string="Decision", default='man')
     user_id = fields.Many2one(comodel_name='res.users',string="Author",help="")
-    image_128 = fields.Image("Image", max_width=128, max_height=128)
     trigger_type = fields.Selection([
         ('chatter', 'Chatter'),
         ('code', 'Code'),

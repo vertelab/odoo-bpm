@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <odoo>
+    <data>
         <!-- Search View -->
         <record id="view_bpm_workflow_search" model="ir.ui.view">
             <field name="name">bpm.workflow.search</field>
@@ -84,18 +84,14 @@
                         <group col="2">
                             <group id="c1">
                                 <field name="parent_id" />
-                                <field name="document_type" />
                                 <field name="version"  class="oe_inline"/>
                                 <field name="date"  class="oe_inline"/>
                                 <field name="author_id" />
                                 <field name="process_owner_id" />
                                 <field name="approved_by_id" />
                                 <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" />
-
                             </group>
                             <group id="c2">
-
-
 
                             </group>
                         </group>
@@ -106,7 +102,7 @@
                             <page string="Goals" id="goals">
                                 <field name="goals" no-label="1" />
                             </page>
-                            <page string="Success Criteras/Risks" id="success_criterias">
+                            <page string="Success Critera/Risks" id="success_criteria">
                                 <group>
                                     <field name="success_criteria"  />
                                     <field name="risks"  />
@@ -118,13 +114,13 @@
                             <page string="Diagram" id="mermaid_diagram">
                                 <field name="mermaid_diagram" widget="mermaid" no-label="1" />
                             </page>
-
                         </notebook>
                     </sheet>
                     <chatter reload_on_follower="True"/>
                 </form>
             </field>
         </record>
+
         <!-- List (Tree) View -->
         <record id="view_bpm_workflow_tree" model="ir.ui.view">
             <field name="name">bpm.workflow.tree</field>
@@ -140,6 +136,7 @@
                 </list>
             </field>
         </record>
+
         <!-- Kanban View -->
         <record id="view_bpm_workflow_kanban" model="ir.ui.view">
             <field name="name">bpm.workflow.kanban</field>
@@ -178,6 +175,7 @@
                 </kanban>
             </field>
         </record>
+
         <!-- Calendar View -->
         <record id="view_bpm_workflow_calendar" model="ir.ui.view">
             <field name="name">bpm.workflow.calendar</field>
@@ -189,13 +187,15 @@
                 </calendar>
             </field>
         </record>
+
         <record id="action_bpm_workflow" model="ir.actions.act_window">
-            <field name="name">BMP Workflows</field>
+            <field name="name">BPM Workflows</field>
             <field name="res_model">bpm.workflow</field>
             <field name="view_mode">kanban,list,form,calendar</field>
             <field name="view_id" ref="view_bpm_workflow_kanban" />
         </record>
+
         <menuitem id="menu_bpm_workflow_root" name="Business Process Management" sequence="10" />
         <menuitem id="menu_bpm_workflow" name="BPM" parent="menu_bpm_workflow_root" action="action_bpm_workflow" sequence="20" />
-    </odoo>
+    </data>
 </odoo>
