@@ -1,81 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record id="view_bpm_task_search" model="ir.ui.view">
-    <field name="name">bpm.task.search</field>
-    <field name="model">bpm.task</field>
-    <field name="arch" type="xml">
-      <search string="BPM Tasks">
-        <field name="name" />
-        <field name="priority" />
-        <field name="state" />
-        <field name="user_id" />
-        <field name="parent_id" />
-<!--
-        <field name="decision_type" />
-        <filter string="My Tasks" name="own_tasks" domain="[('user_id', '=', uid)]"/>
-        <filter string="Draft" domain="[('state', '=', 'draft')]" />
-        <filter string="Ongoing" domain="[('state', '=', 'ongoing')]" />
-        <filter string="Done" domain="[('state', '=', 'done')]" />
--->
-        
-        <group expand="1" string="Group By">
-            <filter string="Type" name="group_by_task_type" context="{'group_by':'task_type'}" />
-            <filter string="State" name="group_by_state" context="{'group_by':'state'}" />
-            <filter string="Priority" name="group_by_priority" context="{'group_by':'priority'}" />
-            <filter string="Parent Task" name="group_by_parent" context="{'group_by':'parent_id'}" />
-          </group>
-      </search>
-    </field>
-  </record>
-<record id="view_bpm_task_tree" model="ir.ui.view">
-  <field name="name">bpm.task.tree</field>
-  <field name="model">bpm.task</field>
-  <field name="arch" type="xml">
-    <list string="BPM Tasks">
-      <field name="sequence" widget="handle" />
-      <field name="name" />
-      <field name="priority" optional="show" />
-      <field name="state" optional="show" />
-      <field name="task_type" optional="hide" />
-      <field name="decision_type" optional="hide" />
-      <field name="user_id" optional="hide" />
-      <field name="parent_id" optional="hide" />
-    </list>
-  </field>
-</record>
+    <record id="view_bpm_task_search" model="ir.ui.view">
+        <field name="name">bpm.task.search</field>
+        <field name="model">bpm.task</field>
+        <field name="arch" type="xml">
+            <search string="BPM Tasks">
+                <field name="name" />
+                <field name="priority" />
+                <field name="state" />
+                <field name="user_id" />
+                <field name="parent_id" />
+                <group expand="1" string="Group By">
+                    <filter string="Type" name="group_by_task_type" context="{'group_by':'task_type'}" />
+                    <filter string="State" name="group_by_state" context="{'group_by':'state'}" />
+                    <filter string="Priority" name="group_by_priority" context="{'group_by':'priority'}" />
+                    <filter string="Parent Task" name="group_by_parent" context="{'group_by':'parent_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
 
-  <record id="view_bpm_task_form" model="ir.ui.view">
-    <field name="name">bpm.task.form</field>
-    <field name="model">bpm.task</field>
-    <field name="arch" type="xml">
-      <form string="BPM Task">
-        <header>
-          <!--
-               <button name="button_major_version" string="Major Version" type="object" xclass="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="m" />
-               <button name="button_minor_version" string="Minor Version" type="object" class="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="m" />
-          -->
-          <field name="state" widget="statusbar_duration" options="{'clickable': '1', 'fold_field': 'fold'}" />
-        </header>
-        <sheet>
-          <group>
-            <field name="name" />
-            <field name="task_type" />
-            <field name="priority" />
-          </group>
-          <notebook>
-            <page string="Description" id="desc">
-              <field name="description" />
-            </page>
-            <page string="Process Data" id="process">
-              <field name="process_data" />
-            </page>
-            <page string="Action &amp; Menu" id="action">
-              <field name="action" />
-              <field name="menu" />
-            </page>
-          </notebook>
-        </sheet>
-      </form>
-    </field>
-  </record>
+    <record id="view_bpm_task_tree" model="ir.ui.view">
+        <field name="name">bpm.task.tree</field>
+        <field name="model">bpm.task</field>
+        <field name="arch" type="xml">
+            <list string="BPM Tasks">
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="priority" optional="show" />
+                <field name="state" optional="show" />
+                <field name="task_type" optional="hide" />
+                <field name="decision_type" optional="hide" />
+                <field name="user_id" optional="hide" />
+                <field name="parent_id" optional="hide" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_bpm_task_form" model="ir.ui.view">
+        <field name="name">bpm.task.form</field>
+        <field name="model">bpm.task</field>
+        <field name="arch" type="xml">
+            <form string="BPM Task">
+                <header>
+                    <field name="state" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}" />
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="task_type" />
+                        <field name="priority" />
+                        <field name="trigger_type" />
+
+                        <field name="model_id" />
+                        <field name="model_name" invisible="1" />
+                        <field name="filter_domain" widget="domain" options="{'model': 'model_name'}"/>
+                    </group>
+                    <notebook>
+                        <page string="Description" id="desc">
+                            <field name="description" />
+                        </page>
+                        <page string="Process Data" id="process">
+                            <field name="process_data" />
+                        </page>
+                        <page string="Action &amp; Menu" id="action">
+                            <field name="action" />
+                            <field name="menu" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bpm_task_kanban" model="ir.ui.view">
+        <field name="name">bpm.task.kanban</field>
+        <field name="model">bpm.task</field>
+        <field name="arch" type="xml">
+            <kanban string="BPM Task">
+                <field name="name"/>
+                <field name="state"/>
+                <field name="task_type"/>
+                <field name="decision_type"/>
+                <field name="user_id"/>
+                <field name="parent_id"/>
+                <templates>
+                    <t t-name="menu">
+                        <a type="open" class="dropdown-item">Module Info</a>
+                    </t>
+                    <t t-name="card" class="flex-row align-items-center">
+                        <aside>
+                            <field name="image_128" alt="Contact image" widget="image" options="{'img_class': 'object-fit-cover'}" />
+                        </aside>
+
+                        <main class="me-4" >
+                            <field class="fw-bold fs-5" name="name" />
+                            <p class="text-muted small my-0 lh-sm">
+                                <div>
+                                    <field name="requirement_ids" />
+                                </div>
+                            </p>
+                            <footer class="w-100 justify-content-between">
+                                <field name="user_id" widget="many2one_avatar_user" />
+                                <field name="task_type" />
+                                <field name="activity_ids" class="float-end" widget="kanban_activity"/>
+                            </footer>
+                        </main>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_bpm_task" model="ir.actions.act_window">
+        <field name="name">BMP Task</field>
+        <field name="res_model">bpm.task</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="view_id" ref="view_bpm_task_kanban" />
+    </record>
+
+    <menuitem id="menu_bpm_task" name="BPM Tasks" parent="bpm_workflow.menu_bpm_workflow" action="action_bpm_task" sequence="20" />
+
+<!--    <record model="ir.actions.act_window" id="open_mgmtsystem_nonconformity_thread_list">-->
+<!--        <field name="name">Nonconformities</field>-->
+<!--        <field name="res_model">bp.nonconformity</field>-->
+<!--        <field name="view_mode">kanban,list,form</field>-->
+<!--        <field name="domain">[('res_id', '=', id), ('res_model', '=', mgmtsystem_nonconformity)]</field>-->
+<!--        <field name="view_id" ref="view_mgmtsystem_nonconformity_kanban" />-->
+<!--        <field name="search_view_id" ref="view_mgmtsystem_nonconformity_filter" />-->
+<!--        <field name="context" >{"search_default_user_id":uid, "default_res_model": mgmtsystem_nonconformity, "default_res_id": id}-->
+<!--        </field>-->
+<!--    </record>-->
 </odoo>

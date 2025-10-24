@@ -211,7 +211,7 @@ class BPMWorkflow(models.Model):
             record.version = f"{major}.0"
             record.date = fields.Date.today()
 
-    def action_Tasks(self):
+    def action_tasks(self):
       return {
           'type': 'ir.actions.act_window',
           'name': 'Tasks',
@@ -219,6 +219,9 @@ class BPMWorkflow(models.Model):
           'domain': [('bpm_id', '=', self.id)],
           'view_mode': 'list,form',
           'target': 'current',
+          'context': {
+              'default_bom_id': self.id
+          }
       }
 
     def action_requirements(self):

@@ -39,19 +39,26 @@ In a BPM context, a workflow engine is the technical core that orchestrates how 
     'license': 'AGPL-3',
     'contributor': '',
     'maintainer': 'Vertel AB',
-    'depends': ['mail',
-            'web_widget_mermaid_field' # https://github.com/VictorHachard/odoo-modules/tree/17.0/web_widget_mermaid_field,
-
+    'depends': [
+        'mail',
+        'web_mermaid'
     ],
     'data': [
+        'security/bpm_security.xml',
         # ~ 'data/cron.xml',
         # ~ 'data/server_action.xml',
         'views/bpm_workflow_views.xml',
         'views/bpm_task_views.xml',
         'views/bpm_requirement_views.xml',
         'security/ir.model.access.csv',
-        'security/bpm_security.xml',
+
     ],
+    'assets': {
+        'web.assets_backend': [
+            'bpm_workflow/static/src/**/*.xml',
+            'bpm_workflow/static/src/**/*.js',
+        ],
+    },
     'application': True,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

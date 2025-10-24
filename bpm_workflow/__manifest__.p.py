@@ -32,26 +32,33 @@ is specialized software designed to manage and automate business processes syste
 This software uses process definitions often modeled with standards like BPMN (Business Process Model and Notation) to visually represent workflows and specify task sequences, decision points, and timelines. It reduces manual work, minimizes errors, and speeds up process execution by automating routine and complex tasks. Additionally, it provides real-time monitoring, logging, and notifications so process managers can track progress and intervene if needed.
 
 In a BPM context, a workflow engine is the technical core that orchestrates how business operations flow in an automated, transparent, and auditable manner, supporting efficiency and process compliance. It allows organizations to flexibly configure workflows, assign roles, enforce business rules, and adjust processes dynamically without heavy coding requirements, often through drag-and-drop interfaces or process definition languages. This approach helps align IT and business users in managing process improvements and ensures scalable, adaptable business process automation
-        
+
     """,
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-bpm/bpm_workflow',
     'license': 'AGPL-3',
     'contributor': '',
     'maintainer': 'Vertel AB',
-    'depends': ['mail',
-            'web_widget_mermaid_field' # https://github.com/VictorHachard/odoo-modules/tree/17.0/web_widget_mermaid_field,
-
+    'depends': [
+        'mail',
+        'web_mermaid'
     ],
     'data': [
+        'security/bpm_security.xml',
         # ~ 'data/cron.xml',
         # ~ 'data/server_action.xml',
         'views/bpm_workflow_views.xml',
         'views/bpm_task_views.xml',
         'views/bpm_requirement_views.xml',
         'security/ir.model.access.csv',
-        'security/bpm_security.xml',
+
     ],
+    'assets': {
+        'web.assets_backend': [
+            'bpm_workflow/static/src/**/*.xml',
+            'bpm_workflow/static/src/**/*.js',
+        ],
+    },
     'application': True,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
