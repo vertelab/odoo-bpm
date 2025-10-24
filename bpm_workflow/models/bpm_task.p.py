@@ -1,9 +1,11 @@
+import re
+import html
+import base64
+from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError, AccessError
-import re
-import html
-from bs4 import BeautifulSoup
+from odoo.modules.module import get_module_resource
 
 import logging
 
@@ -20,7 +22,7 @@ class BPMTask(models.Model):
     child_ids = fields.One2many(comodel_name="bpm.task",inverse_name="parent_id")
     description = fields.Text(string="Description")
     duration_tracking = fields.Float(string='Duration Tracking')
-    image_128 = fields.Image("Image", max_width=128, max_height=128)
+    image_128 = fields.Image("Image", max_width=128, max_height=128, compute='_compute_image_128')
     name = fields.Char(string="Name", required=True)
     process_data = fields.Text(string="Process")
     requirement_ids = fields.One2many(comodel_name='bpm.requirement.task', inverse_name='task_id')
@@ -57,3 +59,33 @@ class BPMTask(models.Model):
     def _compute_requirement_names_ids(self):
         for record in self:
             record.requirement_names_ids = record.requirement_ids.mapped('req_id')
+            
+    @api.depends('task_type')
+    def _compute_image_128(self):
+        """Set image based on task type"""
+        for record in self:
+            if not record.task_type:
+                record.image_128 = False
+                continue
+
+            # Map task types to image filenames
+            image_map = {
+                'task': 'task.png',
+                'end': 'end.png',
+                'start': 'startpoint.png',
+                'decision': 'decision.png',
+            }
+
+            filename = image_map.get(record.task_type)
+            if not filename:
+                record.image_128 = False
+                continue
+
+            # Get the image path from the module
+            image_path = get_module_resource('bpm_workflow', 'static', 'img', filename)
+
+            if image_path:
+                with open(image_path, 'rb') as f:
+                    record.image_128 = base64.b64encode(f.read())
+            else:
+                record.image_128 = False
