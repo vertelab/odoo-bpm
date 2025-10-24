@@ -36,7 +36,7 @@
                     <header>
                         <button name="button_major_version" string="Major Version" type="object" xclass="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="m" />
                         <button name="button_minor_version" string="Minor Version" type="object" class="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="m" />
-                        <button name="action_process_mermaid_syntax" class="btn btn-primary" type="object" string="Create Diagram" />
+                        <button name="action_generate_diagram" class="btn btn-primary" type="object" string="Create Diagram" />
                         <!--
                              <field name="state" widget="statusbar_duration" options="{'clickable': '1', 'fold_field': 'fold'}" groups="project.group_project_stages" domain="[('company_id', 'in', (company_id, False))]" />
                         -->
@@ -111,8 +111,8 @@
                             </page>
                             <page string="Diagram Editor" id="mermaid_editor">
                                 <group>
-                                    <field name="diagram_type"/>
-                                    <field name="prompt"/>
+                                    <field name="bpm_diagram_type"/>
+<!--                                    <field name="prompt"/>-->
                                 </group>
                                 <field name="mermaid_editor" no-label="1" />
                             </page>

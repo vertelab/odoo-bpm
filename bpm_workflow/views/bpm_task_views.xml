@@ -55,9 +55,10 @@
                     <group>
                         <field name="task_type" />
                         <field name="trigger_type" />
+                        <field name="parent_id" />
 
-                        <field name="res_model" />
-                        <field name="res_id" />
+<!--                        <field name="res_model" />-->
+<!--                        <field name="res_id" />-->
                         <field name="model_name" />
                         <field name="model_id" />
                         <field name="model_name" invisible="1" />

@@ -22,7 +22,7 @@ patch(Chatter.prototype, {
             }
         }
 
-        console.log("BPM Task IDs:", bpmTaskIds);
+//        console.log("BPM Task IDs:", bpmTaskIds);
 
         // Load the action
         const action = await this.env.services.action.loadAction(
@@ -33,11 +33,9 @@ patch(Chatter.prototype, {
         action.domain = [['id', 'in', bpmTaskIds]];
         action.context = {
             bpm_task_ids: bpmTaskIds,
-            default_res_model: this.state.thread.model,
-            default_res_id: this.state.thread.id,
+//            default_res_model: this.state.thread.model,
+//            default_res_id: this.state.thread.id,
         };
-
-        console.log("Action domain:", action.domain);
 
         // Execute the action with modified domain
         this.env.services.action.doAction(action);

@@ -69,7 +69,7 @@ class BPMTask(models.Model):
             image_map = {
                 'task': 'task.png',
                 'end': 'end.png',
-                'start': 'startpoint.png',
+                'start': 'start.png',
                 'decision': 'decision.png',
             }
 

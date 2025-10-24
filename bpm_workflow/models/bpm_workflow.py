@@ -87,6 +87,10 @@ class BPMWorkflow(models.Model):
     closed_tasks_count = fields.Integer(string="Closed Tasks", compute='_compute_tasks_counts')
     tasks_percentage = fields.Float(string="Tasks Completion %", compute='_compute_tasks_counts')
 
+    bpm_diagram_type = fields.Selection([
+        ('flowchart TD', 'flowchart TD'), ('stateDiagram', 'stateDiagram')
+    ], string="Diagram Type", default='flowchart TD')
+
     @api.model
     def _generate_random_token(self):
         return ''.join(choice('abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ23456789') for _i in range(10))
@@ -168,18 +172,133 @@ class BPMWorkflow(models.Model):
             'target': 'current',
         }
 
-    def _mermaid_prompt(self):
-        mermaid_prompt = super()._mermaid_prompt()
+    # def _mermaid_prompt(self):
+    #     mermaid_prompt = super()._mermaid_prompt()
+    #
+    #     if self.task_ids:
+    #         tasks = "\nTasks:\n"
+    #         task_lines = [
+    #             f"- Name: {actor.name}" +
+    #             (f"\n  Role: {actor.role}" if hasattr(actor, 'role') and actor.role else "") +
+    #             (f"\n  Goal: {actor.goal}" if hasattr(actor, 'goal') and actor.goal else "")
+    #             for actor in self.task_ids
+    #         ]
+    #         tasks += "\n".join(task_lines)
+    #         mermaid_prompt += tasks
+    #
+    #     return mermaid_prompt
 
-        if self.task_ids:
-            tasks = "\nTasks:\n"
-            task_lines = [
-                f"- Name: {actor.name}" +
-                (f"\n  Role: {actor.role}" if hasattr(actor, 'role') and actor.role else "") +
-                (f"\n  Goal: {actor.goal}" if hasattr(actor, 'goal') and actor.goal else "")
-                for actor in self.task_ids
-            ]
-            tasks += "\n".join(task_lines)
-            mermaid_prompt += tasks
+    def action_generate_diagram(self):
+        """Generate Mermaid diagram based on diagram type"""
+        self.ensure_one()
 
-        return mermaid_prompt
+        if not self.task_ids:
+            self.mermaid_editor = f"<pre>{self.bpm_diagram_type or 'flowchart TD'}\n    Start[No tasks defined]</pre>"
+            return
+
+        if self.bpm_diagram_type == 'stateDiagram':
+            self.mermaid_editor = f'<pre>{self._generate_state_diagram()}</pre>'
+        else:  # Default to flowchart TD
+            self.mermaid_editor = f'<pre>{self._generate_flowchart()}</pre>'
+
+    def _generate_flowchart(self):
+        """Generate Mermaid flowchart (TD or LR)"""
+        diagram_type = self.bpm_diagram_type or 'flowchart TD'
+        lines = [diagram_type, ""]
+
+        # Map task types to Mermaid node shapes
+        shape_map = {
+            'start': ('[', ']'),  # Rectangle
+            'task': ('[', ']'),  # Rectangle
+            'decision': ('{', '}'),  # Diamond
+            'end': ('([', '])'),  # Stadium
+        }
+
+        # Generate node definitions
+        lines.append("    %% Nodes")
+        for task in self.task_ids.sorted('sequence'):
+            node_id = f"T{task.id}"
+            start_shape, end_shape = shape_map.get(task.task_type, ('[', ']'))
+            node_label = task.name
+            lines.append(f"    {node_id}{start_shape}{node_label}{end_shape}")
+
+        lines.append("")
+        lines.append("    %% Connections")
+
+        # Get root tasks (tasks without parent), prioritizing start tasks
+        root_tasks = self.task_ids.filtered(lambda t: not t.parent_id).sorted(
+            key=lambda t: (0 if t.task_type == 'start' else 1, t.sequence or 999)
+        )
+
+        # Connect root tasks in sequence
+        for i in range(len(root_tasks) - 1):
+            current_id = f"T{root_tasks[i].id}"
+            next_id = f"T{root_tasks[i + 1].id}"
+            lines.append(f"    {current_id} --> {next_id}")
+
+        # Process all parent-child relationships using child_ids
+        for task in self.task_ids:
+            for child in task.child_ids.sorted('sequence'):
+                parent_id = f"T{task.id}"
+                child_id = f"T{child.id}"
+
+                # Add edge label
+                if hasattr(child, 'edge_label') and child.edge_label:
+                    lines.append(f"    {parent_id} -->|{child.edge_label}| {child_id}")
+                elif task.task_type == 'decision':
+                    lines.append(f"    {parent_id} -->|Option| {child_id}")
+                else:
+                    lines.append(f"    {parent_id} --> {child_id}")
+
+        return '\n'.join(lines)
+
+    def _generate_state_diagram(self):
+        """Generate Mermaid state diagram"""
+        lines = ["stateDiagram-v2", ""]
+
+        # Get start tasks
+        start_tasks = self.task_ids.filtered(lambda t: t.task_type == 'start').sorted('sequence')
+
+        # Get root tasks (no parent), prioritizing start type
+        root_tasks = self.task_ids.filtered(lambda t: not t.parent_id).sorted(
+            key=lambda t: (0 if t.task_type == 'start' else 1, t.sequence or 999)
+        )
+
+        lines.append("    %% Transitions")
+
+        # Connect [*] to first root task
+        if root_tasks:
+            first_task = root_tasks[0]
+            # Use task name as state ID
+            first_state = first_task.name.replace(' ', '_')
+            lines.append(f"    [*] --> {first_state}")
+
+        # Connect root tasks in sequence
+        for i in range(len(root_tasks) - 1):
+            current_state = root_tasks[i].name.replace(' ', '_')
+            next_state = root_tasks[i + 1].name.replace(' ', '_')
+            lines.append(f"    {current_state} --> {next_state}")
+
+        # Process all parent-child relationships
+        for task in self.task_ids:
+            for child in task.child_ids.sorted('sequence'):
+                parent_state = task.name.replace(' ', '_')
+                child_state = child.name.replace(' ', '_')
+
+                # Add transition with label
+                if hasattr(child, 'edge_label') and child.edge_label:
+                    lines.append(f"    {parent_state} --> {child_state} : {child.edge_label}")
+                else:
+                    lines.append(f"    {parent_state} --> {child_state}")
+
+                # If child is end, connect to [*]
+                if child.task_type == 'end':
+                    lines.append(f"    {child_state} --> [*]")
+
+        # Connect any orphan end tasks to [*]
+        end_tasks = self.task_ids.filtered(lambda t: t.task_type == 'end' and not t.parent_id)
+        for end_task in end_tasks:
+            end_state = end_task.name.replace(' ', '_')
+            lines.append(f"    {end_state} --> [*]")
+
+        return '\n'.join(lines)

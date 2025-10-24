@@ -35,12 +35,10 @@ class MailThread(models.AbstractModel):
                         if record.filtered_domain(domain):
                             valid_tasks |= task
                     except Exception as e:
-                        print(f"Invalid domain on task {task.id}: {e}")
                         _logger.warning(f"Invalid domain on task {task.id}: {e}")
                 else:
                     valid_tasks |= task
 
-            print(f"Found {len(valid_tasks)} tasks for {record._name} ID {record.id}: {valid_tasks.ids}")
             record.bpm_task_ids = valid_tasks
 
     @api.depends("bpm_task_ids")
