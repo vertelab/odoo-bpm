@@ -25,6 +25,7 @@ class BPMRequirementTask(models.Model):
     ], string="State", default='draft')
     sequence = fields.Integer(string='Sequence')
 
+
 class BPMRequirement(models.Model):
     _name = 'bpm.requirement'
     _inherit = ['mail.thread', 'mail.activity.mixin']

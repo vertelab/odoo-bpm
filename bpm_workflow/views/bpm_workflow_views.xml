@@ -56,7 +56,7 @@
                                     </span>
                                 </div>
                             </button>
-                            <button class="oe_stat_button" type="object" name="action_tasks" icon="fa-cogs">
+                            <button class="oe_stat_button" type="object" name="action_Tasks" icon="fa-cogs">
                                 <div class="o_field_widget o_stat_info">
                                     <span class="o_stat_text">Tasks</span>
                                     <span class="o_stat_value">

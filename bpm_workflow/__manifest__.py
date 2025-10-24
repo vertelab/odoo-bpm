@@ -32,7 +32,7 @@ is specialized software designed to manage and automate business processes syste
 This software uses process definitions often modeled with standards like BPMN (Business Process Model and Notation) to visually represent workflows and specify task sequences, decision points, and timelines. It reduces manual work, minimizes errors, and speeds up process execution by automating routine and complex tasks. Additionally, it provides real-time monitoring, logging, and notifications so process managers can track progress and intervene if needed.
 
 In a BPM context, a workflow engine is the technical core that orchestrates how business operations flow in an automated, transparent, and auditable manner, supporting efficiency and process compliance. It allows organizations to flexibly configure workflows, assign roles, enforce business rules, and adjust processes dynamically without heavy coding requirements, often through drag-and-drop interfaces or process definition languages. This approach helps align IT and business users in managing process improvements and ensures scalable, adaptable business process automation
-        
+
     """,
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-bpm/bpm_workflow',
