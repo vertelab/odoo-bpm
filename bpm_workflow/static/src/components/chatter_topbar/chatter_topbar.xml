@@ -10,8 +10,8 @@
                 class="o_ChatterTopbar_button o_ChatterTopbar_buttonBpmWorkflow btn btn-light btn-primary"
                 type="button"
                 t-att-disabled="!state.thread.hasWriteAccess"
-                t-on-click="onClickShowBpmWorkflow"
-                t-if="props.webRecord.data.non_conformity_count !== undefined"
+                t-on-click="onClickShowBPMTasks"
+                t-if="props.webRecord.data.bpm_task_count !== undefined"
             >
                 <i
                     class="fa fa-folder-open fa-lg me-1"
@@ -20,7 +20,7 @@
                 />
                 <span
                     class="o_ChatterTopbar_buttonCount o_ChatterTopbar_buttonBPMWorkflowCount"
-                    t-esc="props.webRecord.data.non_conformity_count"
+                    t-esc="props.webRecord.data.bpm_task_count"
                 />
             </button>
         </xpath>
