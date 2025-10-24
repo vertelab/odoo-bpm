@@ -193,17 +193,17 @@ class BPMWorkflow(models.Model):
         self.ensure_one()
 
         if not self.task_ids:
-            self.mermaid_editor = f"<pre>{self.diagram_type or 'flowchart TD'}\n    Start[No tasks defined]</pre>"
+            self.mermaid_editor = f"<pre>{self.bpm_diagram_type or 'flowchart TD'}\n    Start[No tasks defined]</pre>"
             return
 
-        if self.diagram_type == 'stateDiagram':
+        if self.bpm_diagram_type == 'stateDiagram':
             self.mermaid_editor = f'<pre>{self._generate_state_diagram()}</pre>'
         else:  # Default to flowchart TD
             self.mermaid_editor = f'<pre>{self._generate_flowchart()}</pre>'
 
     def _generate_flowchart(self):
         """Generate Mermaid flowchart (TD or LR)"""
-        diagram_type = self.diagram_type or 'flowchart TD'
+        diagram_type = self.bpm_diagram_type or 'flowchart TD'
         lines = [diagram_type, ""]
 
         # Map task types to Mermaid node shapes
