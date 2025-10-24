@@ -1,17 +1,8 @@
-from datetime import datetime, timedelta 
+import logging
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError, AccessError
-import re
-import html
-from bs4 import BeautifulSoup
-
-import logging
 
 _logger = logging.getLogger(__name__)
-
-
-from odoo import models, fields
-
 
 class BPMWorkflow(models.Model):
     _name = 'bpm.workflow'
@@ -121,3 +112,18 @@ class BPMWorkflow(models.Model):
             'target': 'current',
         }
 
+    def _mermaid_prompt(self):
+        mermaid_prompt = super()._mermaid_prompt()
+
+        if self.task_ids:
+            tasks = "\nTasks:\n"
+            task_lines = [
+                f"- Name: {actor.name}" +
+                (f"\n  Role: {actor.role}" if hasattr(actor, 'role') and actor.role else "") +
+                (f"\n  Goal: {actor.goal}" if hasattr(actor, 'goal') and actor.goal else "")
+                for actor in self.task_ids
+            ]
+            tasks += "\n".join(task_lines)
+            mermaid_prompt += tasks
+
+        return mermaid_prompt

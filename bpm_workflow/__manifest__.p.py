@@ -41,7 +41,7 @@ In a BPM context, a workflow engine is the technical core that orchestrates how 
     'maintainer': 'Vertel AB',
     'depends': [
         'mail',
-        'web_mermaid'
+        'web_mermaid_ai'
     ],
     'data': [
         'security/bpm_security.xml',
@@ -51,7 +51,6 @@ In a BPM context, a workflow engine is the technical core that orchestrates how 
         'views/bpm_task_views.xml',
         'views/bpm_requirement_views.xml',
         'security/ir.model.access.csv',
-
     ],
     'assets': {
         'web.assets_backend': [

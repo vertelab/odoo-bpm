@@ -1,13 +1,8 @@
-import re
-import html
+import logging
 import base64
-from bs4 import BeautifulSoup
-from datetime import datetime, timedelta
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError, AccessError
-from odoo.modules.module import get_module_resource
-
-import logging
+from odoo.tools.misc import file_path
 
 _logger = logging.getLogger(__name__)
 
@@ -86,7 +81,7 @@ class BPMTask(models.Model):
                 continue
 
             # Get the image path from the module
-            image_path = get_module_resource('bpm_workflow', 'static', 'img', filename)
+            image_path = file_path(f"bpm_workflow/static/img/{filename}")
 
             if image_path:
                 with open(image_path, 'rb') as f:
