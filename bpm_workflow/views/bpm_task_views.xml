@@ -109,7 +109,6 @@
                     </t>
                     <t t-name="card" class="flex-row align-items-center">
                         <aside>
-                            <!--                            <field name="image_128" widget="image_128" options="{'size': [128, 128]}" alt="Icon" />-->
                             <field name="image_128" alt="Contact image" widget="image" options="{'img_class': 'object-fit-cover'}" />
                         </aside>
 
