@@ -1,5 +1,6 @@
 import logging
 import base64
+
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError, AccessError
 from odoo.tools.misc import file_path
