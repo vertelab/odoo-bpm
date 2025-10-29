@@ -139,7 +139,7 @@
     </record>
 
     <record id="action_bpm_task" model="ir.actions.act_window">
-        <field name="name">BMP Task</field>
+        <field name="name">BPM Task</field>
         <field name="res_model">bpm.task</field>
         <field name="view_mode">kanban,list,form</field>
         <field name="view_id" ref="view_bpm_task_kanban" />
