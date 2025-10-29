@@ -248,7 +248,7 @@ msgstr "Beroenden"
 #: model:ir.model.fields.selection,name:bpm_workflow.selection__bpm_workflow__state__deprecated
 #: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_workflow_search
 msgid "Deprecated"
-msgstr "Föråldrad"
+msgstr "Inte i bruk"
 
 #. module: bpm_workflow
 #: model:ir.model.fields,field_description:bpm_workflow.field_bpm_requirement__description
