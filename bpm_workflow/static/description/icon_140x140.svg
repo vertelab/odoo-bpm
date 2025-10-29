@@ -8,10 +8,10 @@
    version="1.1"
    id="SVGRoot"
    sodipodi:docname="icon_140x140.svg"
-   inkscape:export-filename="/usr/share/odoo-account/account_admin_rights/static/description/icon.png"
+   inkscape:export-filename="icon.png"
    inkscape:export-xdpi="92"
    inkscape:export-ydpi="92"
-   inkscape:version="1.3.2 (1:1.3.2+202404261509+091e20ef0f)"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
    xml:space="preserve"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -42,15 +42,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="8.4852811"
-     inkscape:cy="-31.466251"
+     inkscape:cx="-33.941125"
+     inkscape:cy="-32.173358"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1452"
-     inkscape:window-height="1214"
-     inkscape:window-x="26"
-     inkscape:window-y="23"
+     inkscape:window-height="1011"
+     inkscape:window-x="1996"
+     inkscape:window-y="50"
      inkscape:window-maximized="0"
      inkscape:showpageshadow="2"
      inkscape:pagecheckerboard="0"
@@ -70,21 +70,48 @@
        width="145.39145"
        style="stroke-width:4.60939169" /><text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="70.519753"
-       y="94.392151"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27.0218px;line-height:125%;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.9212px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="69.533936"
+       y="86.776436"
        id="text2035"
        inkscape:export-xdpi="92"
        inkscape:export-ydpi="92"><tspan
          sodipodi:role="line"
-         x="70.519753"
-         y="94.392151"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:1px"
-         id="tspan833">Lawyer</tspan></text><image
-       width="47"
-       height="38"
+         x="69.533936"
+         y="86.776436"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27.0218px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.9212px"
+         id="tspan1689">BPM</tspan><tspan
+         sodipodi:role="line"
+         x="69.533936"
+         y="120.55369"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:27.0218px;font-family:Ubuntu;-inkscape-font-specification:'Ubuntu, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.9212px"
+         id="tspan1693">Workflow</tspan></text><image
+       width="46.40834"
+       height="35.889118"
        preserveAspectRatio="none"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAmCAYAAABUKMJkAAAABHNCSVQICAgIfAhkiAAAA9VJREFU&#10;WIXNmFuoVVUUhr95kCNYJpQolZJRZJQSIieCKMGIKIkUAoVeulhI0Usg9hTSS4RBB8oHowgSuj2k&#10;IhFGYRBdTYuIMDGji8csT5ZonYPH/fWw1s51pnvtudbeC+1/WnuPf4zxz7HmbQ1oGOoC9RV1RJ1Q&#10;D6mb1YVN52oU6mp13M4YVx9sMl9IiJkCPAQsBgYSsQaBVQleC3gDGE/EagF7gE0hhIkEtzPU4ZIq&#10;ni0Md9OXqvxhYFZPI28Gv4UQZpcZU1PhYMNi6qJr/pT4h4GR5rTUwkievxRdpw38t2gvSXDnATur&#10;xAMElgI/JDgjPS/WulA/rbgIPzsrgnJRy9R16pUJ3pD6T0L4mHp9Is4C9XF1ab/C16itPPEf6twE&#10;//ac1wlH1WUJ/2vUEzm/pd7dq/CZ6mgk4NUKfrPVg5HfiFq65RV8d0R+P6nn9SJ+Y4fqnVJvrOC7&#10;N/L7roLPnYW3XMSTdYUvVE92fPm6S+26xdYVrw6q+0ry/a3OqyP+/YJzSz0QBby/YfFrI36c782q&#10;wldEjh+o8812ijYOqRc0Id5sjfxZ4P6lzlG/jgp4c0r4VHV/wWlCXZTbNkSCnm5I/IsRd13+/y1O&#10;XgN77DZdzfbXIjYVbDPUXwu2MUv2/qri1cV5gdrYr04t2LdEcTp/D6gXq8cKxKPqrIizOgq2tU/x&#10;HxY4LXV5ZL/CyQffYXVGp0AvRwkf68AZUHdHCW/tRby6KuK8VzLApyLeMzFhyGwPb2OvOlgS7CYn&#10;z8VvzC5vlcWr09QfC/aTlnzjqtPNDrk2xtWr2sagfhRVM3WMvx6Je7Sm+PWRfWMi370Rf3vbcE9k&#10;eKdboNznMk/fQVSPqBdWEa/OjXxH1ZmJfAPq51GBb5sCrC3ygG3qktQAgB3Aivz5IuABYEMFv0eA&#10;aYXf24Fr1ZTfW8BQ/hyAtVjeqqiLl9pZEpXf1lC+XwaALytUqwqqxmkq31cDwDDZdOkHvwObK3Jf&#10;AI73mU/g2exJX+vj9U2od02KnN5t7rPz9bcqni8GGzTrJ9YNeFxdeUZZqh1Sa6y/3lrqc3a646gr&#10;Lb9XF3FK3Wr7sOhBfM67Tn3XdNFaZrfMSefPGa2KfFRLgDuARcClZH3IY8D3wCfAlhDCgU6C2uKB&#10;+YW/9oUQ5nfhXw0sB24ALgemA2PAz8Bu4G3g4xBCv2szjaqV7xepjtn/GlO6GdXzgSeo1uIuIm6R&#10;zFF31vBvt7jXhxBO1PA7DbMd6Fyi69mRanEfIbu3nCuMhhBKL22pqfBtw2Lqomv+lPjVwC6yOXg2&#10;0QK+yPOX4l+INR8AL2lSUAAAAABJRU5ErkJggg==&#10;"
-       id="image1"
-       x="9.1898775"
-       y="20.310717" /></g></svg>
+       style="image-rendering:optimizeQuality"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAAB0CAYAAABnjctrAAAABHNCSVQICAgIfAhkiAAABGBJREFU
+eJzt3T+PG1UUBfBzvBtAEVIkBEmJEG0KIgqgoEZCtFQkRQpCB1UUSmigWlFSIEFDQ0MRxJdAoOR7
+ACIRUlD4s5di7cTxbja25x3fuW/Or0wi54zvmTdv7fWYeLJXIuLWGv9OhuQlALczM4xIiXnMTvm7
+9+NI6kEAQETciogAcC07S6JS8+AJf7YfEf/oYg1H8gyAf7Nz7EjJeawWay8iSgyM5D6A/7JziJWd
+x3KxZhFRalAk9wAcZucQKT2PB8WaXzPLIXnS5by86vNYbN4/TMwy1EfZAQTKz4NA3bNjobdVq4d5
+zAC8nh2kgTeyAzTUxTxY/exY6GXV6mUep71AarY1F8skXCyTcLFMwsUyCRfLJPazAzT0XnYAe6ib
+17FsXHwpNAkXyyRcLJNwsUzCxTIJF8skXCyTcLFMwsUyCRfLJFwsk3CxTMLFMgkXyyRcLJPo5hf9
+/LnCcfGKZRIulkm4WCbhYpmEi2US3RSrl5+mejEjeZAdoqGr2QGG6mEeJA8I4ExE/J0dppUObtVd
+fh4kn+riVpGrqr9YWn0ei1tFguTz2WFa6mAwZedB8gXg4eb9d5I/JOZR+CA7wAAl50HyJoDfgJVv
+pqh+pq8ieR7Ar9k5tlVtHstbkGN7kWoH8yTeb+3G6vN87HUsHrm+u0haVQbzOGOfB8kb25y830cH
+AHzS/ilNMZp5ALh5WtBNmvZ2RPw47HnJQ/IZAPezczS083mQfAfAWv/naPcf87Oiqer7rUpG+17h
+/CvKmlKU1U422mIBOCT5kuBxPxc8phX0lWDj+WL2QfWuxJ7D+616yjy5LlctY95jPWLx5mZjXwse
+0wo6EOy3zmUfVI/KXQp8Sayh5BPqco1fmT3WMpIXBA/7neAxraCPBfuti9kH1YvSy7/okjgD4Ld+
+BipdLMD7rbEqucdaNv+4V2vlft/cNBT7rZezD6qybpZ8xSVx10g+DaD0h1UXyl8KF3rYF0XE/fkJ
+8kV2lqHKD2PFuYi4kx2iFZJnAfyVnWMb3axYc3dJXs4O0UpE3APwVnaObfS2YgHoY7+1jORrAH7K
+zrGJLosFdFmuPQCH2TnW1W2xgC7LVWZeve2xHkHySnaGxsoUq0zQbXnVytH1igXUGURvui8W8OD1
+INuhyZzNvVwSq6zAk1ixbPdcLJNwsUzCxTIJF8skXCyTcLFMwsUyCRfLJFwsk3CxTMLFMgkXyyRc
+LJNwsUzCxTIJF8skXCyTcLFMwsUyCRfLJFwsk3CxTMLFMgkXyyRcLJNwsUxiMsUi+W52hikpcYOJ
+Rp6NiD+zQwxV5aYgJUK20sMdZ6oUazKXQgAg+WV2hiGqlAqY2IoF1F61KhVrUisWAJC8lJ1hG5VK
+BUywWABuk/w2O8QmSD6XnWFTUywWAFwh+U12iHXMv//6j+wcmyq1vAq8GhE/Z4d4nGrfRrFsqivW
+wi888ll2kGUk35zvqUqWyo47D+DT1t/Wug4A19DRif4/ZEYcl7KtkP4AAAAASUVORK5CYII=
+"
+       id="image1220"
+       x="7.6690464"
+       y="8.5477257" /></g></svg>
