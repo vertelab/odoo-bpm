@@ -147,13 +147,13 @@ msgstr "BPM krav"
 #: model:ir.model,name:bpm_workflow.model_bpm_task
 #: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_form
 msgid "BPM Task"
-msgstr "BPM uppgift"
+msgstr "BPM Uppgift"
 
 #. module: bpm_workflow
 #: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_search
 #: model_terms:ir.ui.view,arch_db:bpm_workflow.view_bpm_task_tree
 msgid "BPM Tasks"
-msgstr "BPM uppgifter"
+msgstr "BPM Uppgifter"
 
 #. module: bpm_workflow
 #: model:res.groups,name:bpm_workflow.group_bpm_user
