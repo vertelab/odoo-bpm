@@ -25,7 +25,7 @@
     'summary': 'A Product Requirements Document (PRD) is a formal document that outlines the purpose, features, and requirements.',
     'category': 'Productivity',
     'description': """
-        A BPM Workflow Engine﻿ is specialized software designed to manage and automate business processes systematically and efficiently. It controls the sequence of tasks within a defined business process, ensuring that each step is executed by the appropriate person or system at the right time according to preset rules, events, and conditions. The engine can route tasks, make decisions based on conditions, trigger actions, and integrate with other software systems via APIs to enable seamless data exchange and task automation.
+        A BPM Workflow Engine is specialized software designed to manage and automate business processes systematically and efficiently. It controls the sequence of tasks within a defined business process, ensuring that each step is executed by the appropriate person or system at the right time according to preset rules, events, and conditions. The engine can route tasks, make decisions based on conditions, trigger actions, and integrate with other software systems via APIs to enable seamless data exchange and task automation.
 
 This software uses process definitions often modeled with standards like BPMN (Business Process Model and Notation) to visually represent workflows and specify task sequences, decision points, and timelines. It reduces manual work, minimizes errors, and speeds up process execution by automating routine and complex tasks. Additionally, it provides real-time monitoring, logging, and notifications so process managers can track progress and intervene if needed.
 
