@@ -11,7 +11,7 @@
                 type="button"
                 t-att-disabled="!state.thread.hasWriteAccess"
                 t-on-click="onClickShowBPMTasks"
-                t-if="props.webRecord.data.bpm_task_count !== undefined"
+                t-if="props.webRecord.data.bpm_task_count !== 0"
             >
                 <i
                     class="fa fa-folder-open fa-lg me-1"
