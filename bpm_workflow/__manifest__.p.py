@@ -58,4 +58,3 @@ In a BPM context, a workflow engine is the technical core that orchestrates how 
     },
     'application': True,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
