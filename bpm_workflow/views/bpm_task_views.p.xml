@@ -59,7 +59,7 @@
                         <page string="Parents" invisible="task_type == 'start'">
                             <field name="parent_ids" context="{'default_bpm_id': bpm_id}">
                                 <list editable="bottom">
-                                    <field name="sequence" widget="handle"/>
+                                    <field name="sequence" widget="handle"/>    
                                     <field name="parent_id"/>
                                     <field name="bpm_id" column_invisible="1"/>
                                 </list>
