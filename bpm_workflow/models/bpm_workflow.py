@@ -253,43 +253,18 @@ class BPMWorkflow(models.Model):
         """Generate Mermaid state diagram"""
         lines = ["stateDiagram-v2", ""]
 
-        # Get start tasks
-        start_tasks = self.task_ids.filtered(lambda t: t.task_type == 'start').sorted('sequence')
-
-        # Get root tasks (no parent), prioritizing start type
-        root_tasks = self.task_ids.filtered(lambda t: not t.parent_id).sorted(
-            key=lambda t: (0 if t.task_type == 'start' else 1, t.sequence or 999)
-        )
-
         lines.append("    %% Transitions")
 
-        # Connect [*] to first root task
-        if root_tasks:
-            first_task = root_tasks[0]
-            # Use task name as state ID
-            first_state = first_task.name.replace(' ', '_')
-            lines.append(f"    [*] --> {first_state}")
-
-        # Connect root tasks in sequence
-        for i in range(len(root_tasks) - 1):
-            current_state = root_tasks[i].name.replace(' ', '_')
-            next_state = root_tasks[i + 1].name.replace(' ', '_')
-            lines.append(f"    {current_state} --> {next_state}")
-
         # Process all parent-child relationships
-        for task in self.task_ids:
-            for child in task.child_ids.sorted('sequence'):
+        for task in self.task_ids.sorted('sequence'):
+            for child in task.child_ids:
                 parent_state = task.name.replace(' ', '_')
-                child_state = child.name.replace(' ', '_')
+                child_state = child.child_id.name.replace(' ', '_')
 
-                # Add transition with label
-                if hasattr(child, 'edge_label') and child.edge_label:
-                    lines.append(f"    {parent_state} --> {child_state} : {child.edge_label}")
-                else:
-                    lines.append(f"    {parent_state} --> {child_state}")
+                lines.append(f"    {parent_state} --> {child_state}")
 
                 # If child is end, connect to [*]
-                if child.task_type == 'end':
+                if child.child_id.task_type == 'end':
                     lines.append(f"    {child_state} --> [*]")
 
         # Connect any orphan end tasks to [*]
