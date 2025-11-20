@@ -6,7 +6,7 @@
       <field name="model">bpm.task</field>
       <field name="inherit_id" ref="bpm_workflow.view_bpm_task_form"/>
       <field name="arch" type="xml">
-        <field name="parent_id" position="after">
+        <field name="task_type" position="after">
           <field name="trigger_type" invisible="task_type != 'decision'"/>
           <field name="model_name" invisible="not model_id"/>
           <field name="model_id" invisible="task_type != 'decision'"/>
