@@ -225,17 +225,6 @@ class BPMWorkflow(models.Model):
         lines.append("")
         lines.append("    %% Connections")
 
-        # Get root tasks (tasks without parent), prioritizing start tasks
-        root_tasks = self.task_ids.filtered(lambda t: not t.parent_ids).sorted(
-            key=lambda t: (0 if t.task_type == 'start' else 1, t.sequence or 999)
-        )
-
-        # Connect root tasks in sequence
-        for i in range(len(root_tasks) - 1):
-            current_id = f"T{root_tasks[i].id}"
-            next_id = f"T{root_tasks[i + 1].id}"
-            lines.append(f"    {current_id} --> {next_id}")
-
         # Process all parent-child relationships using child_ids
         for task in self.task_ids.sorted('sequence'):
             for child in task.child_ids: 
