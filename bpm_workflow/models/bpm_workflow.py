@@ -226,7 +226,7 @@ class BPMWorkflow(models.Model):
         lines.append("    %% Connections")
 
         # Get root tasks (tasks without parent), prioritizing start tasks
-        root_tasks = self.task_ids.filtered(lambda t: not t.parent_id).sorted(
+        root_tasks = self.task_ids.filtered(lambda t: not t.parent_ids).sorted(
             key=lambda t: (0 if t.task_type == 'start' else 1, t.sequence or 999)
         )
 
@@ -237,16 +237,13 @@ class BPMWorkflow(models.Model):
             lines.append(f"    {current_id} --> {next_id}")
 
         # Process all parent-child relationships using child_ids
-        for task in self.task_ids:
-            for child in task.child_ids.sorted('sequence'):
+        for task in self.task_ids.sorted('sequence'):
+            for child in task.child_ids: 
                 parent_id = f"T{task.id}"
-                child_id = f"T{child.id}"
+                child_id = f"T{child.child_id.id}"
 
-                # Add edge label
-                if hasattr(child, 'edge_label') and child.edge_label:
-                    lines.append(f"    {parent_id} -->|{child.edge_label}| {child_id}")
-                elif task.task_type == 'decision':
-                    lines.append(f"    {parent_id} -->|Option| {child_id}")
+                if task.task_type == 'decision':
+                    lines.append(f"    {parent_id} -->|{child.option if child.option else "Option"}| {child_id}")
                 else:
                     lines.append(f"    {parent_id} --> {child_id}")
 

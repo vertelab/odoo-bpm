@@ -15,8 +15,7 @@ class BPMTask(models.Model):
 
     active = fields.Boolean(string='Active', default=True)
     bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)
-    parent_id = fields.Many2one(comodel_name='bpm.task',string="Parent Task",help="")
-    child_ids = fields.One2many(comodel_name="bpm.task",inverse_name="parent_id")
+    parent_id = fields.Many2one(comodel_name='bpm.task',string="Parent Task",help="", domain="[('bpm_id', '=', bpm_id)]")
     description = fields.Text(string="Description")
     duration_tracking = fields.Float(string='Duration Tracking')
     image_128 = fields.Image("Image", max_width=128, max_height=128, compute='_compute_image_128')
@@ -42,15 +41,10 @@ class BPMTask(models.Model):
         ('domain', 'Conditions'),
     ], string="Decision", default='man')
     user_id = fields.Many2one(comodel_name='res.users',string="Author",help="")
-    trigger_type = fields.Selection([
-        ('chatter', 'Chatter'),
-        ('code', 'Code'),
-    ], string="Trigger", default='chatter')
     res_model = fields.Char(index=True)
     res_id = fields.Integer(index=True)
-    model_id = fields.Many2one(comodel_name='ir.model', string="Model")
-    model_name = fields.Char(related='model_id.model', string='Model Name', readonly=True, store=True)
-    filter_domain = fields.Char(string='Domain')
+    parent_ids = fields.One2many(comodel_name="bpm.task.decision",inverse_name="child_id")
+    child_ids = fields.One2many(comodel_name="bpm.task.decision",inverse_name="parent_id")
 
     @api.depends('requirement_ids.task_id')
     def _compute_requirement_names_ids(self):

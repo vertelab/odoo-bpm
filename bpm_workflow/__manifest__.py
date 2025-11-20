@@ -50,11 +50,5 @@ In a BPM context, a workflow engine is the technical core that orchestrates how 
         'views/bpm_task_views.xml',
         'views/bpm_requirement_views.xml',
     ],
-    'assets': {
-        'web.assets_backend': [
-            'bpm_workflow/static/src/components/chatter_topbar.xml',
-            'bpm_workflow/static/src/components/chatter_topbar.esm.js',
-        ],
-    },
     'application': True,
 }

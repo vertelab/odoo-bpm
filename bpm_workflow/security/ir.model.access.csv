@@ -7,3 +7,5 @@ access_bpm_requirement_user,bpm.requirement user,model_bpm_requirement,base.grou
 access_bpm_requirement_manager,bpm.requirement manager,model_bpm_requirement,base.group_system,1,1,1,1
 access_bpm_requirement_task_user,bpm.requirement user,model_bpm_requirement_task,base.group_user,1,0,0,0
 access_bpm_requirement_task_manager,bpm.requirement manager,model_bpm_requirement_task,base.group_system,1,1,1,1
+bpm_workflow.access_bpm_task_decision,access_bpm_task_decision,bpm_workflow.model_bpm_task_decision,base.group_user,1,1,1,1
+
