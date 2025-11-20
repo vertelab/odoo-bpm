@@ -252,10 +252,6 @@ class BPMWorkflow(models.Model):
 
                 lines.append(f"    {parent_state} --> {child_state}")
 
-                # If child is end, connect to [*]
-                # if child.child_id.task_type == 'end':
-                #     lines.append(f"    {child_state} --> [*]")
-
         # Connect any orphan end tasks to [*]
         end_tasks = self.task_ids.filtered(lambda t: t.task_type == 'end' and not t.parent_id)
         for end_task in end_tasks:
