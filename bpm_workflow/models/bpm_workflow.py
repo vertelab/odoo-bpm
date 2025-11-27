@@ -242,26 +242,33 @@ class BPMWorkflow(models.Model):
         """Generate Mermaid state diagram"""
         lines = ["stateDiagram-v2", ""]
 
+        nodes = self.task_ids.sorted('sequence').filtered(lambda t: 'start' not in t.task_type and 'end' not in t.task_type)
+
+        # Generate node definitions
+        lines.append("    %% Nodes")
+        for task in nodes:
+            lines.append(f"   {task.id} : {task.name}")
+
+        # Process all parent->child relationships
+        lines.append("")
         lines.append("    %% Transitions")
-
-        # Process all parent-child relationships
-        for task in self.task_ids.sorted('sequence'):
+        for task in nodes:
             for child in task.child_ids:
-                parent_state = task.name.replace(' ', '_')
-                child_state = child.child_id.name.replace(' ', '_')
+                if child.child_id.task_type == 'end':
+                    nline = f"   {task.id} --> [*]"
+                else:
+                    nline = f"   {task.id} --> {child.child_id.id}"
+                if child.option:
+                    nline = nline + f" : {child.option}"
+                lines.append(nline)
 
-                lines.append(f"    {parent_state} --> {child_state}")
-
-
+        # Processes all the start nodes
         start_tasks = self.task_ids.filtered(lambda t: t.task_type == 'start')
         for start_task in start_tasks:
-            start_state = start_task.name.replace(' ', '_')
-            lines.append(f"    [*] --> {start_state}")
-
-
-        end_tasks = self.task_ids.filtered(lambda t: t.task_type == 'end')
-        for end_task in end_tasks:
-            end_state = end_task.name.replace(' ', '_')
-            lines.append(f"    {end_state} --> [*]")
+            for child in start_task.child_ids:
+                nline = f"   [*] --> {child.child_id.id}"
+                if child.option:
+                    nline = nline + f" : {child.option}"
+                lines.append(nline)
 
         return '\n'.join(lines)
