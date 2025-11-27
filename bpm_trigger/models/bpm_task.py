@@ -58,6 +58,25 @@ class BPMTask(models.Model):
         readonly=False,
     )
 
+    @api.depends('model_id', 'trigger', 'filter_domain')
+    def _compute_trigger_field_ids(self):
+        for automation in self:
+            if automation.trigger == "on_create_or_write":
+                automation.trigger_field_ids |= automation._get_filter_domain_fields()
+                continue
+            automation._onchange_trigger()
+
+    @api.depends('model_id')
+    def _compute_action_server_ids(self):
+        """ When changing / setting model, remove actions that are not targeting
+        the same model anymore. """
+        for rule in self.filtered('model_id'):
+            actions_to_remove = rule.action_server_ids.filtered(
+                lambda action: action.model_id != rule.model_id
+            )
+            if actions_to_remove:
+                rule.action_server_ids = [(3, action.id) for action in actions_to_remove]
+
     @api.onchange("model_id","trigger")
     def _create_automation(self):
         if self.model_id and self.trigger != False and not self.automation_id:
@@ -80,15 +99,17 @@ class BPMTask(models.Model):
             self.automation_id.write(update_vals)
         return res
 
-    @api.depends('model_id')
-    def _compute_action_server_ids(self):
-        """ When changing / setting model, remove actions that are not targeting
-        the same model anymore. """
-        for rule in self.filtered('model_id'):
-            actions_to_remove = rule.action_server_ids.filtered(
-                lambda action: action.model_id != rule.model_id
-            )
-            if actions_to_remove:
-                rule.action_server_ids = [(3, action.id) for action in actions_to_remove]
-
-   
+    def _get_filter_domain_fields(self):
+        self.ensure_one()
+        if not self.filter_domain or not self.model_id:
+            return self.env['ir.model.fields']
+        model = self.model_id.model
+        fields = self.env["ir.model.fields"]
+        # wondering why we use a regex instead of safe_eval?
+        # because this method is called on a compute method hence could be triggered
+        # from an onchange call (i.e. a manually crafted malicious one)
+        # see: https://github.com/odoo/odoo/pull/189772#issuecomment-2548804283
+        for match in DOMAIN_FIELDS_RE.finditer(self.filter_domain):
+            if field := match.groupdict().get('field'):
+                fields |= self.env["ir.model.fields"]._get(model, field)
+        return fields
