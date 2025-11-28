@@ -23,7 +23,7 @@ class MailThread(models.AbstractModel):
         """Get BPM tasks based on trigger_type, model, and domain"""
         for record in self:
             tasks = self.env['bpm.task'].search([
-                ('trigger_type', '=', 'chatter'),
+                ('trigger', '=', 'chatter'),
                 ('model_name', '=', record._name),
             ])
 

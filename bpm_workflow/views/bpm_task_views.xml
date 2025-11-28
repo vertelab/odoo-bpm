@@ -60,7 +60,7 @@
                             <field name="parent_ids" context="{'default_bpm_id': bpm_id}">
                                 <list editable="bottom">
                                     <field name="sequence" widget="handle"/>    
-                                    <field name="parent_id"/>
+                                    <field name="parent_id" context="{'default_bpm_id': bpm_id}"/>
                                     <field name="bpm_id" column_invisible="1"/>
                                 </list>
                             </field>
@@ -69,7 +69,7 @@
                             <field name="child_ids" context="{'default_bpm_id': bpm_id}">
                                 <list editable="bottom">
                                     <field name="sequence" widget="handle"/>
-                                    <field name="child_id"/>
+                                    <field name="child_id" context="{'default_bpm_id': bpm_id}"/>
                                     <field name="option"/>
                                     <field name="bpm_id" column_invisible="1"/>
                                 </list>
@@ -90,12 +90,6 @@
                                     <field name="req_state" />
                                 </list>
                             </field>
-                        </page>
-                        <page string="Diagram Editor" id="mermaid_editor">
-                            <field name="mermaid_editor" no-label="1" />
-                        </page>
-                        <page string="Diagram" id="mermaid_diagram">
-                            <field name="mermaid_diagram" widget="mermaid" no-label="1" />
                         </page>
                     </notebook>
                 </sheet>
