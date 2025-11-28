@@ -11,7 +11,7 @@ class BPMTaskDecision(models.Model):
     _order = "sequence desc"
 
     bpm_id = fields.Many2one(comodel_name="bpm.workflow")
-    parent_id = fields.Many2one(comodel_name="bpm.task", domain="[('task_type','!=','end'),('bpm_id', '=', bpm_id)]")
-    child_id = fields.Many2one(comodel_name="bpm.task",domain="[('task_type','!=','start'),('bpm_id', '=', bpm_id)]")
+    parent_id = fields.Many2one(required="True", comodel_name="bpm.task", domain="[('task_type','!=','end'),('bpm_id', '=', bpm_id)]")
+    child_id = fields.Many2one(required="True", comodel_name="bpm.task",domain="[('task_type','!=','start'),('bpm_id', '=', bpm_id)]")
     sequence = fields.Integer(string='Sequence')
     option = fields.Char()
