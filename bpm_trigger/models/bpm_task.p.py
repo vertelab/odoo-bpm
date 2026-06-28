@@ -1,10 +1,14 @@
+import re
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, AccessError, ValidationError
 import logging
 
 _logger = logging.getLogger(__name__)
 
-UPDATE_FIELDS = ["name","model_id","trigger","filter_domain","filter_pre_domain","code"]
+# Regex for extracting field names from domain strings (matches Odoo's base.automation)
+DOMAIN_FIELDS_RE = re.compile(r'(?:["\'](\w+)["\'])')
+
+UPDATE_FIELDS = {"name", "model_id", "trigger", "filter_domain", "filter_pre_domain", "code"}
 
 
 class BPMTask(models.Model):
@@ -50,6 +54,11 @@ class BPMTask(models.Model):
                 If present, will be checked by the scheduler. If empty, will be checked at creation and update.""")
     code = fields.Html()
     automation_id = fields.Many2one(comodel_name="base.automation")
+    trigger_field_ids = fields.Many2many(
+        comodel_name='ir.model.fields',
+        compute='_compute_trigger_field_ids',
+        store=False,
+    )
     action_server_ids = fields.One2many(comodel_name="ir.actions.server", inverse_name="base_automation_id",
         context={'default_usage': 'base_automation'},
         string="Actions",
@@ -77,27 +86,48 @@ class BPMTask(models.Model):
             if actions_to_remove:
                 rule.action_server_ids = [(3, action.id) for action in actions_to_remove]
 
-    @api.onchange("model_id","trigger")
-    def _create_automation(self):
-        if self.model_id and self.trigger != False and not self.automation_id:
-            automation_id = self.env["base.automation"].create({
+    @api.model_create_multi
+    def create(self, vals_list):
+        records = super().create(vals_list)
+        for record in records:
+            record._sync_automation()
+        return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        for record in self:
+            record._sync_automation(vals)
+        return res
+
+    def _sync_automation(self, vals=None):
+        """Sync BPM task configuration with underlying base.automation record.
+        Creates or updates the automation record to match the trigger settings."""
+        if not self.model_id or self.trigger in (False, None):
+            return
+
+        if not self.automation_id:
+            # Create new automation
+            automation = self.env["base.automation"].create({
                 "name": f"{self.bpm_id.name} - {self.name}",
                 "model_id": self.model_id.id,
-                "trigger": self.trigger
+                "trigger": self.trigger,
             })
-            self.automation_id = automation_id.id
-
-    def write(self,vals):
-        res = super(BPMTask,self).write(vals)
-        if self.automation_id:
+            # Use SQL write to avoid recursion
+            self.env.cr.execute(
+                "UPDATE bpm_task SET automation_id = %s WHERE id = %s",
+                (automation.id, self.id)
+            )
+            self.invalidate_recordset(['automation_id'])
+        elif vals:
+            # Update existing automation with changed fields
             update_vals = {}
             for key in UPDATE_FIELDS:
-                if key in vals.keys():
-                    value = getattr(self,key,False)
+                if key in vals:
+                    value = vals[key]
                     if value:
-                        update_vals.update({key:value})
-            self.automation_id.write(update_vals)
-        return res
+                        update_vals[key] = value
+            if update_vals:
+                self.automation_id.write(update_vals)
 
     def _get_filter_domain_fields(self):
         self.ensure_one()

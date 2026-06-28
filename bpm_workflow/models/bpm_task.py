@@ -11,7 +11,7 @@ class BPMTask(models.Model):
     _name = 'bpm.task'
     _inherit = ['mermaid.mixin', 'mail.thread', 'mail.activity.mixin']
     _description = 'BPM Task'
-    _order = "sequence desc"
+    _order = "sequence asc"
 
     active = fields.Boolean(string='Active', default=True)
     bpm_id = fields.Many2one('bpm.workflow', string='BPM', ondelete='cascade', required=True)

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- Instance Search View                            -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <record id="view_bpm_instance_search" model="ir.ui.view">
+            <field name="name">bpm.instance.search</field>
+            <field name="model">bpm.instance</field>
+            <field name="arch" type="xml">
+                <search string="Process Instances">
+                    <field name="name"/>
+                    <field name="workflow_id"/>
+                    <field name="res_model"/>
+                    <field name="user_id"/>
+                    <filter name="running" string="Running"
+                            domain="[('state','=','running')]"/>
+                    <filter name="completed" string="Completed"
+                            domain="[('state','=','completed')]"/>
+                    <filter name="my_instances" string="My Instances"
+                            domain="[('user_id','=',uid)]"/>
+                    <separator/>
+                    <filter name="today" string="Started Today"
+                            domain="[('start_date','>=',context_today().strftime('%%Y-%%m-%%d 00:00:00'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Workflow" name="group_workflow"
+                                context="{'group_by':'workflow_id'}"/>
+                        <filter string="State" name="group_state"
+                                context="{'group_by':'state'}"/>
+                        <filter string="Started By" name="group_user"
+                                context="{'group_by':'user_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- Instance Tree View                              -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <record id="view_bpm_instance_tree" model="ir.ui.view">
+            <field name="name">bpm.instance.tree</field>
+            <field name="model">bpm.instance</field>
+            <field name="arch" type="xml">
+                <tree string="Instances" decoration-danger="state=='terminated'"
+                      decoration-success="state=='completed'"
+                      decoration-warning="state=='suspended'">
+                    <field name="name"/>
+                    <field name="workflow_id"/>
+                    <field name="state" widget="badge"/>
+                    <field name="res_ref" optional="show"/>
+                    <field name="active_tasks_count" string="Active"/>
+                    <field name="completed_tasks_count" string="Done"/>
+                    <field name="duration_hours" widget="float_time" optional="show"/>
+                    <field name="start_date" optional="show"/>
+                    <field name="user_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- Instance Kanban View                            -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <record id="view_bpm_instance_kanban" model="ir.ui.view">
+            <field name="name">bpm.instance.kanban</field>
+            <field name="model">bpm.instance</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column">
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="workflow_id"/>
+                    <field name="active_tasks_count"/>
+                    <field name="completed_tasks_count"/>
+                    <field name="total_tasks_count"/>
+                    <field name="duration_hours"/>
+                    <field name="start_date"/>
+                    <field name="user_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_content">
+                                    <div><strong><field name="name"/></strong></div>
+                                    <div class="text-muted small">
+                                        <field name="workflow_id"/>
+                                        <t t-if="record.start_date.raw_value">
+                                            • <field name="start_date" widget="date"/>
+                                        </t>
+                                    </div>
+                                    <div class="mt-2">
+                                        <div class="progress" style="height: 6px">
+                                            <div class="progress-bar bg-success"
+                                                 t-att-style="'width:' + (record.completed_tasks_count.raw_value / (record.total_tasks_count.raw_value or 1) * 100) + '%'"/>
+                                        </div>
+                                        <small class="text-muted">
+                                            <field name="completed_tasks_count"/> / <field name="total_tasks_count"/>
+                                            <t t-if="record.duration_hours.raw_value">
+                                                • <field name="duration_hours" widget="float_time"/>
+                                            </t>
+                                        </small>
+                                    </div>
+                                    <footer>
+                                        <field name="user_id" widget="many2one_avatar_user"/>
+                                        <field name="active_tasks_count" class="float-end" string="Active"/>
+                                    </footer>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- Instance Form View                              -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <record id="view_bpm_instance_form" model="ir.ui.view">
+            <field name="name">bpm.instance.form</field>
+            <field name="model">bpm.instance</field>
+            <field name="arch" type="xml">
+                <form string="Process Instance">
+                    <header>
+                        <field name="state" widget="statusbar"
+                               options="{'clickable': '1'}"/>
+                        <button name="action_resume" string="Resume" type="object"
+                                invisible="state != 'suspended'" class="btn-primary"/>
+                        <button name="action_suspend" string="Suspend" type="object"
+                                invisible="state != 'running'"/>
+                        <button name="action_terminate" string="Terminate"
+                                type="object" class="btn-danger"
+                                invisible="state not in ('running','suspended')"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" icon="fa-tasks">
+                                <div class="o_stat_info">
+                                    <span class="o_stat_value">
+                                        <field name="active_tasks_count"/>
+                                    </span>
+                                    <span class="o_stat_text">Active Tasks</span>
+                                </div>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="workflow_id"/>
+                            <field name="res_ref"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="duration_hours" widget="float_time"/>
+                        </group>
+                        <notebook>
+                            <page string="Tasks" name="tasks">
+                                <field name="instance_task_ids" mode="kanban">
+                                    <kanban default_group_by="state">
+                                        <field name="name"/>
+                                        <field name="state"/>
+                                        <field name="task_type"/>
+                                        <field name="assigned_to"/>
+                                        <field name="deadline"/>
+                                        <field name="sequence"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_kanban_card">
+                                                    <div>
+                                                        <strong><field name="name"/></strong>
+                                                        <field name="task_type" widget="badge"/>
+                                                    </div>
+                                                    <div class="text-muted small">
+                                                        <field name="assigned_to" widget="many2one_avatar_user"/>
+                                                        <t t-if="record.deadline.raw_value">
+                                                            <span class="float-end">
+                                                                <i class="fa fa-clock-o"/> <field name="deadline"/>
+                                                            </span>
+                                                        </t>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+                            <page string="Related" name="mgmt">
+                                <group string="Management System">
+                                    <field name="mgmt_audit_id"/>
+                                    <field name="mgmt_action_id"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <chatter/>
+                </form>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- Instance Task Kanban View                       -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <record id="view_bpm_instance_task_kanban" model="ir.ui.view">
+            <field name="name">bpm.instance.task.kanban</field>
+            <field name="model">bpm.instance.task</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" class="o_kanban_small_column">
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="task_type"/>
+                    <field name="assigned_to"/>
+                    <field name="instance_id"/>
+                    <field name="deadline"/>
+                    <field name="duration_hours"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_content">
+                                    <div>
+                                        <field name="task_type" widget="badge"/>
+                                        <strong><field name="name"/></strong>
+                                    </div>
+                                    <div class="text-muted small">
+                                        <field name="instance_id"/>
+                                    </div>
+                                    <div class="mt-2">
+                                        <field name="assigned_to" widget="many2one_avatar_user"/>
+                                        <t t-if="record.deadline.raw_value"
+                                           t-att-class="'float-end ' + (new Date(record.deadline.raw_value) < new Date() ? 'text-danger' : 'text-muted')">
+                                            <field name="deadline"/>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- Dashboard Action                               -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <record id="action_bpm_dashboard" model="ir.actions.act_window">
+            <field name="name">BPM Dashboard</field>
+            <field name="res_model">bpm.dashboard.action</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+        </record>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- Actions & Menus                                -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <record id="action_bpm_instance" model="ir.actions.act_window">
+            <field name="name">Process Instances</field>
+            <field name="res_model">bpm.instance</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_id" ref="view_bpm_instance_kanban"/>
+        </record>
+
+        <menuitem id="menu_bpm_dashboard"
+                  name="Dashboard"
+                  parent="menu_bpm_workflow_root"
+                  action="action_bpm_dashboard"
+                  sequence="5"/>
+
+        <menuitem id="menu_bpm_instance"
+                  name="Instances"
+                  parent="menu_bpm_workflow"
+                  action="action_bpm_instance"
+                  sequence="15"/>
+
+    </data>
+</odoo>
+
+        <!-- ═══════════════════════════════════════════════ -->
+        <!-- Standard Link Tree View                         -->
+        <!-- ═══════════════════════════════════════════════ -->
+        <record id="view_bpm_standard_link_tree" model="ir.ui.view">
+            <field name="name">bpm.standard.link.tree</field>
+            <field name="model">bpm.standard.link</field>
+            <field name="arch" type="xml">
+                <tree string="Standard Links" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="standard" optional="show"/>
+                    <field name="link_type" optional="show"/>
+                    <field name="res_ref"/>
+                    <field name="res_model" optional="hide"/>
+                    <field name="workflow_id" optional="hide"/>
+                    <field name="task_id" optional="hide"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_bpm_standard_link_form" model="ir.ui.view">
+            <field name="name">bpm.standard.link.form</field>
+            <field name="model">bpm.standard.link</field>
+            <field name="arch" type="xml">
+                <form string="Standard Link">
+                    <sheet>
+                        <group>
+                            <field name="workflow_id"/>
+                            <field name="task_id" domain="[('bpm_id', '=', workflow_id)]"/>
+                            <field name="link_type"/>
+                            <field name="res_ref"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -44,11 +44,11 @@ In a BPM context, a workflow engine is the technical core that orchestrates how 
     'data': [
         'security/ir.model.access.csv',
         'security/bpm_security.xml',
-        # ~ 'data/cron.xml',
-        # ~ 'data/server_action.xml',
         'views/bpm_workflow_views.xml',
         'views/bpm_task_views.xml',
         'views/bpm_requirement_views.xml',
+        'views/bpm_instance_views.xml',
+        'wizard/bpmn_import_views.xml',
     ],
     'application': True,
 }

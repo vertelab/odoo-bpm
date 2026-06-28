@@ -34,9 +34,14 @@
             <field name="arch" type="xml">
                 <form string="Business Process Management">
                     <header>
-                        <button name="button_major_version" string="Major Version" type="object" xclass="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="m" />
-                        <button name="button_minor_version" string="Minor Version" type="object" class="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="m" />
+                        <button name="button_major_version" string="Major Version" type="object" class="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="m" />
+                        <button name="button_minor_version" string="Minor Version" type="object" class="oe_highlight" groups="bpm_workflow.group_bpm_manager" data-hotkey="n" />
                         <button name="action_generate_diagram" class="btn btn-primary" type="object" string="Create Diagram" />
+                        <button name="%(action_bpmn_import_wizard)d" type="action" string="Import BPMN" class="btn-secondary" groups="bpm_workflow.group_bpm_manager" />
+                        <button name="action_export_bpmn" class="btn btn-secondary" type="object" string="Export BPMN" groups="bpm_workflow.group_bpm_user" />
+                        <button name="%(action_bpm_instance)d" type="action" string="Start Instance" class="btn-primary"
+                                context="{'default_workflow_id': active_id, 'default_state': 'running'}"
+                                invisible="state != 'approved'"/>
                         <!--
                              <field name="state" widget="statusbar_duration" options="{'clickable': '1', 'fold_field': 'fold'}" groups="project.group_project_stages" domain="[('company_id', 'in', (company_id, False))]" />
                         -->
@@ -68,6 +73,27 @@
                                         <field name="tasks_percentage" widget="percentage" options="{'digits': [1, 0]}" />
                                         )
                                     </span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="action_view_mgmt_actions" icon="fa-lightbulb-o"
+                                    invisible="mgmt_action_count == 0">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Improvements</span>
+                                    <span class="o_stat_value"><field name="mgmt_action_count"/></span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="action_view_mgmt_nonconformities" icon="fa-exclamation-triangle"
+                                    invisible="mgmt_nonconformity_count == 0">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Nonconf.</span>
+                                    <span class="o_stat_value"><field name="mgmt_nonconformity_count"/></span>
+                                </div>
+                            </button>
+                            <button class="oe_stat_button" type="object" name="action_view_mgmt_links" icon="fa-link"
+                                    invisible="mgmt_link_count == 0">
+                                <div class="o_field_widget o_stat_info">
+                                    <span class="o_stat_text">Standard Links</span>
+                                    <span class="o_stat_value"><field name="mgmt_link_count"/></span>
                                 </div>
                             </button>
                         </div>
@@ -118,6 +144,37 @@
                             </page>
                             <page string="Diagram" id="mermaid_diagram">
                                 <field name="mermaid_diagram" widget="mermaid" no-label="1" />
+                            </page>
+                            <page string="Management System" id="mgmt_system" groups="bpm_workflow.group_bpm_manager">
+                                <group string="Standard Links (policies, clauses, processes, objectives)">
+                                    <field name="mgmt_link_ids" mode="kanban">
+                                        <kanban>
+                                            <field name="res_model"/>
+                                            <field name="res_name"/>
+                                            <field name="standard"/>
+                                            <field name="link_type"/>
+                                            <templates>
+                                                <t t-name="kanban-box">
+                                                    <div class="oe_kanban_card">
+                                                        <div>
+                                                            <field name="standard" widget="badge"/>
+                                                            <strong><field name="res_name"/></strong>
+                                                        </div>
+                                                        <div class="text-muted small">
+                                                            <field name="link_type"/> • <field name="res_model"/>
+                                                        </div>
+                                                    </div>
+                                                </t>
+                                            </templates>
+                                        </kanban>
+                                    </field>
+                                </group>
+                                <group string="Shared Entities">
+                                    <field name="mgmt_action_ids" widget="many2many_tags" readonly="1"/>
+                                    <field name="mgmt_nonconformity_ids" widget="many2many_tags" readonly="0"/>
+                                    <field name="mgmt_audit_ids" widget="many2many_tags"/>
+                                    <field name="mgmt_last_improvement_date"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>

@@ -2,6 +2,7 @@ import logging
 from lxml import etree
 
 from odoo import api, fields, models
+from odoo.tools import safe_eval
 from odoo.tools.misc import frozendict
 
 _logger = logging.getLogger(__name__)
@@ -31,8 +32,8 @@ class MailThread(models.AbstractModel):
             for task in tasks:
                 if task.filter_domain:
                     try:
-                        domain = eval(task.filter_domain)
-                        if record.filtered_domain(domain):
+                        domain = safe_eval(task.filter_domain)
+                        if isinstance(domain, list) and record.filtered_domain(domain):
                             valid_tasks |= task
                     except Exception as e:
                         _logger.warning(f"Invalid domain on task {task.id}: {e}")

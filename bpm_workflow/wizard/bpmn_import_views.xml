@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- BPMN Import Wizard Form -->
+        <record id="view_bpmn_import_wizard_form" model="ir.ui.view">
+            <field name="name">bpm.bpmn.import.wizard.form</field>
+            <field name="model">bpm.bpmn.import.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Import BPMN 2.0 XML">
+                    <group>
+                        <p class="text-muted">
+                            Upload a BPMN 2.0 XML file to import process definition.
+                            Supports files from Camunda Modeler, bpmn.io, Bizagi, and other
+                            BPMN 2.0 compliant tools.
+                        </p>
+                        <field name="workflow_id" invisible="1"/>
+                        <field name="bpmn_file" filename="filename"/>
+                        <field name="filename" invisible="1"/>
+                    </group>
+                    <footer>
+                        <button name="action_import" string="Import" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- BPMN Import Action -->
+        <record id="action_bpmn_import_wizard" model="ir.actions.act_window">
+            <field name="name">Import BPMN 2.0 XML</field>
+            <field name="res_model">bpm.bpmn.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_workflow_id': active_id}</field>
+        </record>
+    </data>
+</odoo>

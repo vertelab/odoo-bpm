@@ -1,6 +1,6 @@
 import base64
 import logging
-from secrets import choice
+import uuid
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError, AccessError
@@ -88,25 +88,38 @@ class BPMWorkflow(models.Model):
     tasks_percentage = fields.Float(string="Tasks Completion %", compute='_compute_tasks_counts')
 
     bpm_diagram_type = fields.Selection([
-        ('flowchart TD', 'flowchart TD'), ('stateDiagram', 'stateDiagram')
-    ], string="Diagram Type", default='flowchart TD')
+        ('flowchart_td', 'Flowchart TD'), ('state_diagram', 'State Diagram')
+    ], string="Diagram Type", default='flowchart_td')
 
     @api.model
     def _generate_random_token(self):
-        return ''.join(choice('abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ23456789') for _i in range(10))
+        return str(uuid.uuid4())[:8]
 
-    @api.onchange('state')
-    def _onchange_state(self):
-        if self.state == 'approved':
-            self.approved_by_id = self.env.user.id
-            self.date = fields.Date.today()
-        else:
-            self.approved_by_id = False
+    @api.constrains('state')
+    def _check_state_transition(self):
+        """Validate state transitions and set approval metadata."""
+        for record in self:
+            if record.state == 'approved':
+                if not record.approved_by_id:
+                    # Set via SQL to avoid triggering write() recursion
+                    self.env.cr.execute(
+                        "UPDATE bpm_workflow SET approved_by_id = %s, date = %s WHERE id = %s",
+                        (self.env.user.id, fields.Date.today(), record.id)
+                    )
+                    record.invalidate_recordset(['approved_by_id', 'date'])
+            elif record.state in ('draft', 'rejected'):
+                if record.approved_by_id:
+                    self.env.cr.execute(
+                        "UPDATE bpm_workflow SET approved_by_id = NULL WHERE id = %s",
+                        (record.id,)
+                    )
+                    record.invalidate_recordset(['approved_by_id'])
 
     @api.depends('image_128', 'uuid')
     def _compute_image_128(self):
         for record in self:
-            record.image_128 = record.image_128 or record._generate_image()
+            if not record.image_128:
+                record.image_128 = record._generate_image()
 
     @api.depends('task_ids')
     def _compute_tasks_counts(self):
@@ -193,18 +206,17 @@ class BPMWorkflow(models.Model):
         self.ensure_one()
 
         if not self.task_ids:
-            self.mermaid_editor = f"<pre>{self.bpm_diagram_type or 'flowchart TD'}\n    Start[No tasks defined]</pre>"
+            self.mermaid_editor = f"<pre>flowchart TD\n    Start[No tasks defined]</pre>"
             return
 
-        if self.bpm_diagram_type == 'stateDiagram':
+        if self.bpm_diagram_type == 'state_diagram':
             self.mermaid_editor = f'<pre>{self._generate_state_diagram()}</pre>'
         else:  # Default to flowchart TD
             self.mermaid_editor = f'<pre>{self._generate_flowchart()}</pre>'
 
     def _generate_flowchart(self):
         """Generate Mermaid flowchart (TD or LR)"""
-        diagram_type = self.bpm_diagram_type or 'flowchart TD'
-        lines = [diagram_type, ""]
+        lines = ["flowchart TD", ""]
 
         # Map task types to Mermaid node shapes
         shape_map = {
@@ -232,7 +244,8 @@ class BPMWorkflow(models.Model):
                 child_id = f"T{child.child_id.id}"
 
                 if task.task_type == 'decision':
-                    lines.append(f"    {parent_id} -->|{child.option if child.option else "Option"}| {child_id}")
+                    option_label = child.option or 'Option'
+                    lines.append(f"    {parent_id} -->|{option_label}| {child_id}")
                 else:
                     lines.append(f"    {parent_id} --> {child_id}")
 
@@ -272,3 +285,61 @@ class BPMWorkflow(models.Model):
                 lines.append(nline)
 
         return '\n'.join(lines)
+
+    @api.constrains('task_ids')
+    def _check_graph_validity(self):
+        """Validate that the workflow graph is well-formed:
+        - At least one start node
+        - At least one end node
+        - No cycles in the graph
+        """
+        for record in self:
+            tasks = record.task_ids
+            if not tasks:
+                continue
+
+            start_count = len(tasks.filtered(lambda t: t.task_type == 'start'))
+            end_count = len(tasks.filtered(lambda t: t.task_type == 'end'))
+
+            if start_count == 0:
+                raise ValidationError(_(
+                    "Workflow '%s' must have at least one start node."
+                ) % record.name)
+            if end_count == 0:
+                raise ValidationError(_(
+                    "Workflow '%s' must have at least one end node."
+                ) % record.name)
+
+            if self._has_cycle(tasks):
+                raise ValidationError(_(
+                    "Workflow '%s' contains a cycle in its task graph."
+                ) % record.name)
+
+    def _has_cycle(self, tasks):
+        """Detect cycles in the task graph using DFS."""
+        visited = set()
+        rec_stack = set()
+
+        graph = {task.id: [] for task in tasks}
+        for task in tasks:
+            for child in task.child_ids:
+                if child.child_id:
+                    graph[task.id].append(child.child_id.id)
+
+        def dfs(node_id):
+            visited.add(node_id)
+            rec_stack.add(node_id)
+            for neighbor in graph.get(node_id, []):
+                if neighbor not in visited:
+                    if dfs(neighbor):
+                        return True
+                elif neighbor in rec_stack:
+                    return True
+            rec_stack.discard(node_id)
+            return False
+
+        for task_id in graph:
+            if task_id not in visited:
+                if dfs(task_id):
+                    return True
+        return False

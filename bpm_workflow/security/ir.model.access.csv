@@ -1,11 +1,18 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_bpm_workflow_user,bpm.workflow user,model_bpm_workflow,base.group_user,1,0,0,0
-access_bpm_workflow_manager,bpm.workflow manager,model_bpm_workflow,base.group_system,1,1,1,1
-access_bpm_task_user,bpm.task user,model_bpm_task,base.group_user,1,0,0,0
-access_bpm_task_manager,bpm.task manager,model_bpm_task,base.group_system,1,1,1,1
-access_bpm_requirement_user,bpm.requirement user,model_bpm_requirement,base.group_user,1,0,0,0
-access_bpm_requirement_manager,bpm.requirement manager,model_bpm_requirement,base.group_system,1,1,1,1
-access_bpm_requirement_task_user,bpm.requirement user,model_bpm_requirement_task,base.group_user,1,0,0,0
-access_bpm_requirement_task_manager,bpm.requirement manager,model_bpm_requirement_task,base.group_system,1,1,1,1
-bpm_workflow.access_bpm_task_decision,access_bpm_task_decision,bpm_workflow.model_bpm_task_decision,base.group_user,1,1,1,1
+access_bpm_workflow_user,bpm.workflow user,model_bpm_workflow,bpm_workflow.group_bpm_user,1,1,1,0
+access_bpm_workflow_manager,bpm.workflow manager,model_bpm_workflow,bpm_workflow.group_bpm_manager,1,1,1,1
+access_bpm_task_user,bpm.task user,model_bpm_task,bpm_workflow.group_bpm_user,1,1,1,0
+access_bpm_task_manager,bpm.task manager,model_bpm_task,bpm_workflow.group_bpm_manager,1,1,1,1
+access_bpm_requirement_user,bpm.requirement user,model_bpm_requirement,bpm_workflow.group_bpm_user,1,1,1,0
+access_bpm_requirement_manager,bpm.requirement manager,model_bpm_requirement,bpm_workflow.group_bpm_manager,1,1,1,1
+access_bpm_requirement_task_user,bpm.requirement task user,model_bpm_requirement_task,bpm_workflow.group_bpm_user,1,1,1,0
+access_bpm_requirement_task_manager,bpm.requirement task manager,model_bpm_requirement_task,bpm_workflow.group_bpm_manager,1,1,1,1
+access_bpm_task_decision_user,access_bpm_task_decision user,model_bpm_task_decision,bpm_workflow.group_bpm_user,1,1,1,0
+access_bpm_task_decision_manager,access_bpm_task_decision manager,model_bpm_task_decision,bpm_workflow.group_bpm_manager,1,1,1,1
+access_bpm_instance_user,bpm.instance user,model_bpm_instance,bpm_workflow.group_bpm_user,1,1,1,0
+access_bpm_instance_manager,bpm.instance manager,model_bpm_instance,bpm_workflow.group_bpm_manager,1,1,1,1
+access_bpm_instance_task_user,bpm.instance.task user,model_bpm_instance_task,bpm_workflow.group_bpm_user,1,1,1,0
+access_bpm_instance_task_manager,bpm.instance.task manager,model_bpm_instance_task,bpm_workflow.group_bpm_manager,1,1,1,1
+access_bpm_standard_link_user,bpm.standard.link user,model_bpm_standard_link,bpm_workflow.group_bpm_user,1,1,1,0
+access_bpm_standard_link_manager,bpm.standard.link manager,model_bpm_standard_link,bpm_workflow.group_bpm_manager,1,1,1,1
 
