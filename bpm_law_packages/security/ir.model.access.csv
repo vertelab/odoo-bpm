@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_law_package_user,law.package user,model_bpm_law_package,base.group_user,1,0,0,0
-access_law_package_manager,law.package manager,model_bpm_law_package,base.group_system,1,1,1,1
-access_law_package_line_user,law.package.line user,model_bpm_law_package_line,base.group_user,1,0,0,0
-access_law_package_line_manager,law.package.line manager,model_bpm_law_package_line,base.group_system,1,1,1,1
