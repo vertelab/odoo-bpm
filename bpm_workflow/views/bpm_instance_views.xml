@@ -76,7 +76,7 @@
                     <field name="start_date"/>
                     <field name="user_id"/>
                     <templates>
-                        <t t-name="kanban-box">
+                        <t t-name="card">
                             <div class="oe_kanban_card">
                                 <div class="oe_kanban_content">
                                     <div><strong><field name="name"/></strong></div>
@@ -162,7 +162,7 @@
                                         <field name="deadline"/>
                                         <field name="sequence"/>
                                         <templates>
-                                            <t t-name="kanban-box">
+                                            <t t-name="card">
                                                 <div class="oe_kanban_card">
                                                     <div>
                                                         <strong><field name="name"/></strong>
@@ -211,7 +211,7 @@
                     <field name="deadline"/>
                     <field name="duration_hours"/>
                     <templates>
-                        <t t-name="kanban-box">
+                        <t t-name="card">
                             <div class="oe_kanban_card">
                                 <div class="oe_kanban_content">
                                     <div>

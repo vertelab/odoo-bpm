@@ -154,7 +154,7 @@
                                             <field name="standard"/>
                                             <field name="link_type"/>
                                             <templates>
-                                                <t t-name="kanban-box">
+                                                <t t-name="card">
                                                     <div class="oe_kanban_card">
                                                         <div>
                                                             <field name="standard" widget="badge"/>
@@ -251,7 +251,7 @@
                     <field name="state" />
                     <field name="author_id" />
                     <templates>
-                        <t t-name="kanban-box">
+                        <t t-name="card">
                             <div class="oe_kanban_card">
                                 <div>
                                     <strong>
