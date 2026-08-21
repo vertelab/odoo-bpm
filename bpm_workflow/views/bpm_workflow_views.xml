@@ -6,7 +6,7 @@
         <record id="action_bpm_instance" model="ir.actions.act_window">
             <field name="name">Process Instances</field>
             <field name="res_model">bpm.instance</field>
-            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_mode">kanban,list,form</field>
         </record>
 
         <record id="action_bpmn_import_wizard" model="ir.actions.act_window">

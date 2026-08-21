@@ -42,7 +42,7 @@
             <field name="name">bpm.instance.tree</field>
             <field name="model">bpm.instance</field>
             <field name="arch" type="xml">
-                <tree string="Instances" decoration-danger="state=='terminated'"
+                <list string="Instances" decoration-danger="state=='terminated'"
                       decoration-success="state=='completed'"
                       decoration-warning="state=='suspended'">
                     <field name="name"/>
@@ -54,7 +54,7 @@
                     <field name="duration_hours" widget="float_time" optional="show"/>
                     <field name="start_date" optional="show"/>
                     <field name="user_id" optional="hide"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -270,7 +270,7 @@
             <field name="name">bpm.standard.link.tree</field>
             <field name="model">bpm.standard.link</field>
             <field name="arch" type="xml">
-                <tree string="Standard Links" editable="bottom">
+                <list string="Standard Links" editable="bottom">
                     <field name="sequence" widget="handle"/>
                     <field name="standard" optional="show"/>
                     <field name="link_type" optional="show"/>
@@ -278,7 +278,7 @@
                     <field name="res_model" optional="hide"/>
                     <field name="workflow_id" optional="hide"/>
                     <field name="task_id" optional="hide"/>
-                </tree>
+                </list>
             </field>
         </record>
 
