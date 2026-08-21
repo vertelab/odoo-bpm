@@ -56,7 +56,7 @@
                         <button name="%(action_bpmn_import_wizard)d" type="action" string="Import BPMN" class="btn-secondary" groups="bpm_workflow.group_bpm_manager" />
                         <button name="action_export_bpmn" class="btn btn-secondary" type="object" string="Export BPMN" groups="bpm_workflow.group_bpm_user" />
                         <button name="%(action_bpm_instance)d" type="action" string="Start Instance" class="btn-primary"
-                                context="{'default_workflow_id': active_id, 'default_state': 'running'}"
+                                context="{'default_workflow_id': id, 'default_state': 'running'}"
                                 invisible="state != 'approved'"/>
                         <!--
                              <field name="state" widget="statusbar_duration" options="{'clickable': '1', 'fold_field': 'fold'}" groups="project.group_project_stages" domain="[('company_id', 'in', (company_id, False))]" />
