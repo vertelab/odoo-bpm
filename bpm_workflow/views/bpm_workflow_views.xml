@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Actions referenced by the form view below. Defined here (before
+             the form) to avoid forward references to later-loaded files. -->
+        <record id="action_bpm_instance" model="ir.actions.act_window">
+            <field name="name">Process Instances</field>
+            <field name="res_model">bpm.instance</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <record id="action_bpmn_import_wizard" model="ir.actions.act_window">
+            <field name="name">Import BPMN 2.0 XML</field>
+            <field name="res_model">bpm.bpmn.import.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'default_workflow_id': active_id}</field>
+        </record>
+
         <!-- Search View -->
         <record id="view_bpm_workflow_search" model="ir.ui.view">
             <field name="name">bpm.workflow.search</field>

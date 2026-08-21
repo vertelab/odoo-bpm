@@ -224,7 +224,7 @@
                                     <div class="mt-2">
                                         <field name="assigned_to" widget="many2one_avatar_user"/>
                                         <t t-if="record.deadline.raw_value"
-                                           t-att-class="'float-end ' + (new Date(record.deadline.raw_value) < new Date() ? 'text-danger' : 'text-muted')">
+                                           t-att-class="'float-end ' + (new Date(record.deadline.raw_value) &lt; new Date() ? 'text-danger' : 'text-muted')">
                                             <field name="deadline"/>
                                         </t>
                                     </div>
@@ -249,13 +249,6 @@
         <!-- ═══════════════════════════════════════════════ -->
         <!-- Actions & Menus                                -->
         <!-- ═══════════════════════════════════════════════ -->
-        <record id="action_bpm_instance" model="ir.actions.act_window">
-            <field name="name">Process Instances</field>
-            <field name="res_model">bpm.instance</field>
-            <field name="view_mode">kanban,tree,form</field>
-            <field name="view_id" ref="view_bpm_instance_kanban"/>
-        </record>
-
         <menuitem id="menu_bpm_dashboard"
                   name="Dashboard"
                   parent="menu_bpm_workflow_root"
@@ -269,8 +262,7 @@
                   sequence="15"/>
 
     </data>
-</odoo>
-
+    <data>
         <!-- ═══════════════════════════════════════════════ -->
         <!-- Standard Link Tree View                         -->
         <!-- ═══════════════════════════════════════════════ -->
