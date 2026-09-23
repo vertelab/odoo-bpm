@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- Actions referenced by the form view below. Defined here (before
-             the form) to avoid forward references to later-loaded files. -->
-        <record id="action_bpm_instance" model="ir.actions.act_window">
-            <field name="name">Process Instances</field>
-            <field name="res_model">bpm.instance</field>
-            <field name="view_mode">kanban,list,form</field>
-        </record>
-
-        <record id="action_bpmn_import_wizard" model="ir.actions.act_window">
-            <field name="name">Import BPMN 2.0 XML</field>
-            <field name="res_model">bpm.bpmn.import.wizard</field>
-            <field name="view_mode">form</field>
-            <field name="target">new</field>
-            <field name="context">{'default_workflow_id': active_id}</field>
-        </record>
-
         <!-- Search View -->
         <record id="view_bpm_workflow_search" model="ir.ui.view">
             <field name="name">bpm.workflow.search</field>
@@ -56,7 +40,7 @@
                         <button name="%(action_bpmn_import_wizard)d" type="action" string="Import BPMN" class="btn-secondary" groups="bpm_workflow.group_bpm_manager" />
                         <button name="action_export_bpmn" class="btn btn-secondary" type="object" string="Export BPMN" groups="bpm_workflow.group_bpm_user" />
                         <button name="%(action_bpm_instance)d" type="action" string="Start Instance" class="btn-primary"
-                                context="{'default_workflow_id': id, 'default_state': 'running'}"
+                                context="{'default_workflow_id': active_id, 'default_state': 'running'}"
                                 invisible="state != 'approved'"/>
                         <!--
                              <field name="state" widget="statusbar_duration" options="{'clickable': '1', 'fold_field': 'fold'}" groups="project.group_project_stages" domain="[('company_id', 'in', (company_id, False))]" />
@@ -170,7 +154,7 @@
                                             <field name="standard"/>
                                             <field name="link_type"/>
                                             <templates>
-                                                <t t-name="card">
+                                                <t t-name="kanban-box">
                                                     <div class="oe_kanban_card">
                                                         <div>
                                                             <field name="standard" widget="badge"/>
@@ -267,7 +251,7 @@
                     <field name="state" />
                     <field name="author_id" />
                     <templates>
-                        <t t-name="card">
+                        <t t-name="kanban-box">
                             <div class="oe_kanban_card">
                                 <div>
                                     <strong>
