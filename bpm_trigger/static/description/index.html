@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BPM: Workflow Engine &mdash; Vertel for Odoo</title>
+  <title>BPM: Trigger &mdash; Vertel for Odoo</title>
   <style>
     :root { --navy:#0F172A; --darkBg:#1E293B; --white:#F8FAFC; --gray:#94A3B8;
              --lightGray:#E2E8F0; --brand:#930a57; --brand2:#8105a7; }
@@ -43,51 +43,47 @@
 </head>
 <body>
 <div class="hero">
-  <h1>BPM: Workflow Engine</h1>
-  <p class="subtitle">Visual BPMN workflow engine with process instances and task decisions.</p>
+  <h1>BPM: Trigger</h1>
+  <p class="subtitle">Triggers BPM workflows automatically from model events.</p>
   <div class="meta">
     <span>Odoo 18.0</span><span>&middot;</span>
-    <span>Productivity</span><span>&middot;</span>
+    <span>Uncategorized</span><span>&middot;</span>
     <span>by Vertel Sverige AB</span>
   </div>
 </div>
 <div class="container">
   <section id="overview">
     <h2>Overview</h2>
-    <p>Visual BPMN workflow engine with process instances and task decisions.</p>
-    <p>It introduces the model(s) <code>BPMTaskDecision</code>, <code>BPMInstanceTask</code>, <code>BPMTaskDecision</code> to handle this workflow.</p>
+    <p>Triggers BPM workflows automatically from model events.</p>
   </section>
   <section id="features">
     <h2>Key Features</h2>
     <div class="feature-grid">
-      <div class="feature-card"><h4>Dedicated data model</h4><p>Adds its own models: BPMTaskDecision, BPMInstanceTask, BPMTaskDecision.</p></div>
-      <div class="feature-card"><h4>Automation</h4><p>Scheduled jobs: Project Monitor Task Checker, Project Monitor Task Checker.</p></div>
-      <div class="feature-card"><h4>Guided wizards</h4><p>Step-by-step dialogs for data entry.</p></div>
-      <div class="feature-card"><h4>Actions</h4><p>Adds action_export_bpmn, action_import, action_start.</p></div>
-      <div class="feature-card"><h4>UI integration</h4><p>Extends 8 view(s) in the Odoo interface.</p></div>
+      <div class="feature-card"><h4>Actions</h4><p>Adds action_view_bpm_task.</p></div>
+      <div class="feature-card"><h4>UI integration</h4><p>Extends 2 view(s) in the Odoo interface.</p></div>
     </div>
   </section>
   <section id="screenshots">
     <h2>Module Graphics</h2>
     <div class="screenshots">
       <figure>
-        <img src="icon.png" alt="BPM: Workflow Engine icon" width="140" height="140">
+        <img src="icon.png" alt="BPM: Trigger icon" width="140" height="140">
         <figcaption>Icon &mdash; 140 &times; 140 px</figcaption>
       </figure>
       <figure>
-        <img src="banner.png" alt="BPM: Workflow Engine banner" width="560" height="280">
+        <img src="banner.png" alt="BPM: Trigger banner" width="560" height="280">
         <figcaption>Banner &mdash; 560 &times; 280 px</figcaption>
       </figure>
     </div>
   </section>
   <section id="dependencies">
     <h2>Dependencies</h2>
-    <ul><li><code>mail</code></li><li><code>web_mermaid_ai</code></li><li><code>mgmtsystem</code></li><li><code>mgmtsystem_action</code></li><li><code>mgmtsystem_nonconformity</code></li></ul>
+    <ul><li><code>bpm_workflow</code></li></ul>
     <p><small>Requires <strong>Odoo 18.0</strong> or later.</small></p>
   </section>
   <section id="installation">
     <h2>Installation</h2>
-    <p>Install the module <code>bpm_workflow</code> from the Odoo Apps menu,
+    <p>Install the module <code>bpm_trigger</code> from the Odoo Apps menu,
        or deploy it via the Vertel SaltStack pipeline.</p>
   </section>
   <section id="support">
@@ -97,7 +93,7 @@
   </section>
 </div>
 <footer>
-  <p><strong>BPM: Workflow Engine</strong> &mdash; by <a href="https://vertel.se">Vertel Sverige AB</a></p>
+  <p><strong>BPM: Trigger</strong> &mdash; by <a href="https://vertel.se">Vertel Sverige AB</a></p>
   <p><a href="https://vertel.se">vertel.se</a> &middot;
      <a href="mailto:info@vertel.se">info@vertel.se</a></p>
 </footer>

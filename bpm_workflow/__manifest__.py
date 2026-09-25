@@ -21,17 +21,26 @@
 
 {
     'name': 'BPM: Workflow Engine',
-    'version': '1.0',
-    'summary': 'A Product Requirements Document (PRD) is a formal document that outlines the purpose, features, and requirements.',
+    'version': '18.0.1.0.0',
+    'summary': 'Visual BPMN workflow engine with process instances and task decisions.',
     'category': 'Productivity',
-    'description': """
-        A BPM Workflow Engine is specialized software designed to manage and automate business processes systematically and efficiently. It controls the sequence of tasks within a defined business process, ensuring that each step is executed by the appropriate person or system at the right time according to preset rules, events, and conditions. The engine can route tasks, make decisions based on conditions, trigger actions, and integrate with other software systems via APIs to enable seamless data exchange and task automation.
+    'description': '''
+Workflow Engine
+===============
 
-This software uses process definitions often modeled with standards like BPMN (Business Process Model and Notation) to visually represent workflows and specify task sequences, decision points, and timelines. It reduces manual work, minimizes errors, and speeds up process execution by automating routine and complex tasks. Additionally, it provides real-time monitoring, logging, and notifications so process managers can track progress and intervene if needed.
+    A BPM Workflow Engine is specialized software designed to manage and automate business processes systematically and efficiently. It controls the sequence of tasks within a defined business process, ensuring that each step is executed by the appropriate person or system at the right time according to preset rules, events, and conditions. The engine can route tasks, make decisions based on conditions, trigger actions, and integrate with other software systems via APIs to enable seamless data exchange and task automation.
 
-In a BPM context, a workflow engine is the technical core that orchestrates how business operations flow in an automated, transparent, and auditable manner, supporting efficiency and process compliance. It allows organizations to flexibly configure workflows, assign roles, enforce business rules, and adjust processes dynamically without heavy coding requirements, often through drag-and-drop interfaces or process definition languages. This approach helps align IT and business users in managing process improvements and ensures scalable, adaptable business process automation
+    This software uses process definitions often modeled with standards like BPMN (Business Process Model and Notation) to visually represent workflows and specify task sequences, decision points, and timelines. It reduces manual work, minimizes errors, and speeds up process execution by automating routine and complex tasks. Additionally, it provides real-time monitoring, logging, and notifications so process managers can track progress and intervene if needed.
 
-    """,
+    In a BPM context, a workflow engine is the technical core that orchestrates how business operations flow in an automated, transparent, and auditable manner, supporting efficiency and process compliance. It allows organizations to flexibly configure workflows, assign roles, enforce business rules, and adjust processes dynamically without heavy coding requirements, often through drag-and-drop interfaces or process definition languages. This approach helps align IT and business users in managing process improvements and ensures scalable, adaptable business process automation
+
+    Features:
+
+        - Automation: Scheduled jobs: Project Monitor Task Checker, Project Monitor Task Checker.
+        - Guided Wizards: Step-by-step dialogs for data entry.
+        - UI Integration: Extends 8 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on bpm.bpmn.import.wizard, bpm.dashboard, bpm.dashboard.action, bpm.instance.
+    ''',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-bpm/bpm_workflow',
     'license': 'AGPL-3',
