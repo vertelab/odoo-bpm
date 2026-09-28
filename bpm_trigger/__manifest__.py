@@ -23,22 +23,16 @@
 #
 {
     'name': 'BPM: Trigger',
-    'version': '18.0.1.0.0',
-    'summary': 'Triggers BPM workflows automatically from model events.',
+    'version': '1.0',
+    'summary': """
+        Short (1 phrase/line) summary of the module's purpose, used as
+        subtitle on modules listing or apps.odoo.com""",
     'category': '', # Technical Settings|Localization|Payroll Localization|Account Charts|User types|Invoicing|Sales|Human Resources|Operations|Marketing|Manufacturing|Website|Theme|Administration|Appraisals|Sign|Helpdesk|Administration|Extra Rights|Other Extra Rights|
-    'description': '''
-Trigger
-=======
-
-    Triggers BPM workflows automatically from model events.
-
-    Features:
-
-        - UI Integration: Extends 2 view(s) in the Odoo interface.
-        - Extends Odoo: Builds on base.automation, base_automation_id, bpm.task, mail.thread.
-    ''',
+    'description': """
+        Long description of module's purpose
+    """,
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-bpm/bpm_trigger',
+    'website': 'https://vertel.se/apps/odoo-',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',
     'depends': ["bpm_workflow"],
