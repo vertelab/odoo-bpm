@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Odoo SA, Open Source Management Solution, third party addon
-#    Copyright (C) 2025- Vertel AB (<https://vertel.se>).
+#    Copyright (C) 2025- Vertel Sverige AB (<https://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -32,11 +32,11 @@ This software uses process definitions often modeled with standards like BPMN (B
 In a BPM context, a workflow engine is the technical core that orchestrates how business operations flow in an automated, transparent, and auditable manner, supporting efficiency and process compliance. It allows organizations to flexibly configure workflows, assign roles, enforce business rules, and adjust processes dynamically without heavy coding requirements, often through drag-and-drop interfaces or process definition languages. This approach helps align IT and business users in managing process improvements and ensures scalable, adaptable business process automation
 
     """,
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-bpm/bpm_workflow',
     'license': 'AGPL-3',
     'contributor': '',
-    'maintainer': 'Vertel AB',
+    'maintainer': 'Vertel Sverige AB',
     'depends': [
         'mail',
         'web_mermaid_ai'
